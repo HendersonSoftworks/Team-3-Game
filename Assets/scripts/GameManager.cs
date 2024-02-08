@@ -25,18 +25,18 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        UpdateEnemyList();
+
         // Test spell casting
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            print("Input.GetKeyDown(KeyCode.Mouse0)");
-            Instantiate(equippedSpells[0], player.transform.position, Quaternion.identity);
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    print("Input.GetKeyDown(KeyCode.Mouse0)");
+        //    Instantiate(equippedSpells[0], player.transform.position, Quaternion.identity);
+        //}
     }
 
     public void UpdateEnemyList()
     {
-        enemies = null;
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        print("Found " + enemies.Length + " enemies");
+        enemies = GameObject.FindGameObjectsWithTag("Enemy"); // very bad practice to have this running every frame - will need to be changed
     }
 }

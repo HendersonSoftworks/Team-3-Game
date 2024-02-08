@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TomEnemy : MonoBehaviour
 {
+    public float health;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,9 @@ public class TomEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (health < 0.1)
+        {
+            Destroy(gameObject);
+        }
     }
 }

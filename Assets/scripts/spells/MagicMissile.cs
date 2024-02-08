@@ -4,38 +4,38 @@ using UnityEngine;
 
 public class MagicMissile : Spell
 {
-    private GameManager gameManager;
-
+    [SerializeField]
+    private float damage;
     [SerializeField]
     private float speed;
+
+    private GameManager gameManager;
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        Effects = new List<EffectTypes>
+        {
+            EffectTypes.autotarget
+        };
 
         Recharge = 3.0f;
-        Damage = 20.0f;
+        Damage = damage;
         RangeType = RangeTypes.single;
-        //Effects.Add(EffectTypes.autotarget);
-        Target = null;
-        GetClosestTarget(gameManager);
+        target = null;
 
+        GetClosestTarget(gameManager);
     }
 
     void Update()
     {
+        GetClosestTarget(gameManager);
 
-        // Move towards enemy
-        transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, speed * Time.deltaTime);
-
+        Move(target, speed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print(Target.name + " hit!");
-        Destroy(Target);
-        GetClosestTarget(gameManager);
-        gameManager.UpdateEnemyList();
-        Destroy(gameObject);
+        DamageEnemy(collision.gameObject, gameManager, damage);
     }
 }
