@@ -29,6 +29,8 @@ public class Spell : MonoBehaviour
     /// </summary>
     public GameObject target;
 
+    public GameObject impactAnimation;
+
     public virtual void GetClosestTarget(GameManager gameManager)
     {
         if (gameManager.enemies.Length == 0)
@@ -64,8 +66,8 @@ public class Spell : MonoBehaviour
             return;
         }
 
-        print("Enemy damaged");
-        print(target.name + " hit!");
+        Instantiate(impactAnimation, transform.position, Quaternion.identity);
+
         Destroy(gameObject);
 
         // Reduce health
@@ -79,7 +81,6 @@ public class Spell : MonoBehaviour
 
     public virtual void SelfDestruct()
     {
-        print("No enemies to target - spell self-destructed");
         Destroy(gameObject);
     }
 
