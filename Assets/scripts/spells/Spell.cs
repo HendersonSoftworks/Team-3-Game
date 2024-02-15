@@ -11,7 +11,7 @@ public class Spell : MonoBehaviour
     /// </summary>
     public float Recharge { get; set; }
     public float Damage { get; set; }
-    public enum RangeTypes { single, area, chain};
+    public enum RangeTypes { single, area, chain, beam};
     
     /// <summary>
     /// Whether the spell targets a single enemy, an area, etc.
@@ -96,5 +96,7 @@ public class Spell : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
             return;
         }
+
+        // Add func for beam
     }
 }
