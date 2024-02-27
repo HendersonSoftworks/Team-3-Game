@@ -11,7 +11,7 @@ public class Spell : MonoBehaviour
     /// </summary>
     public float Recharge { get; set; }
     public float Damage { get; set; }
-    public enum RangeTypes { single, area, chain};
+    public enum RangeTypes { single, area, chain, beam};
     
     /// <summary>
     /// Whether the spell targets a single enemy, an area, etc.
@@ -28,7 +28,6 @@ public class Spell : MonoBehaviour
     /// Spell target is set during runtime
     /// </summary>
     public GameObject target;
-
     public GameObject impactAnimation;
 
     public virtual void GetClosestTarget(GameManager gameManager)
@@ -96,5 +95,39 @@ public class Spell : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
             return;
         }
+    }
+
+    public virtual void Beam(GameObject player, GameObject target, float range)
+    {
+        if (target == null)
+        {
+            return;
+        }
+
+        // Set size of beam
+        Vector2 newScale = new Vector3(transform.localScale.x, range);
+        transform.localScale = newScale ;
+
+        // Set Y rotation so beam is aimed at target
+        transform.up = (target.transform.position - transform.position);
+
+        // Correct beam position to fit with scale
+        float beamDist = Vector2.Distance(player.transform.position, target.transform.position);
+        if (beamDist <= transform.localScale.y / 2)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (transform.localScale.y / 2) + beamDist * 2);
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (transform.localScale.y / 2));
+        }
+        
+
+        return;
+    }
+
+    public virtual void DestroySpell()
+    {
+        Destroy(gameObject);
     }
 }
