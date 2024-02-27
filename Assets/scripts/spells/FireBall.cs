@@ -30,12 +30,12 @@ public class FireBall : Spell
         RangeType = RangeTypes.area;
         target = null;
 
-        GetClosestTarget(gameManager);
+        GetClosestTarget(gameManager, gameManager.player);
     }
 
     void Update()
     {
-        GetClosestTarget(gameManager);
+        GetClosestTarget(gameManager, gameManager.player);
 
         Move(target, speed);
     }

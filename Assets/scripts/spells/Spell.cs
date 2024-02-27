@@ -30,7 +30,16 @@ public class Spell : MonoBehaviour
     public GameObject target;
     public GameObject impactAnimation;
 
-    public virtual void GetClosestTarget(GameManager gameManager)
+    public GameManager gameManager;
+
+    float targetDist;
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
+    public virtual void GetClosestTarget(GameManager gameManager, GameObject player)
     {
         if (gameManager.enemies.Length == 0)
         {
@@ -56,18 +65,16 @@ public class Spell : MonoBehaviour
                     target = enemy.gameObject;
             }
         }
+
+        targetDist = Vector2.Distance(player.transform.position, target.transform.position);
     }
 
     public virtual void DamageEnemy(GameObject target, GameManager gameManager, float damage)
     {
         if (target.tag != "Enemy")
-        {
             return;
-        }
-
-        Instantiate(impactAnimation, transform.position, Quaternion.identity);
-
-        Destroy(gameObject);
+        
+        Instantiate(impactAnimation, target.transform.position, Quaternion.identity);
 
         // Reduce health
         target.GetComponent<TomEnemy>().health -= damage;
@@ -99,35 +106,55 @@ public class Spell : MonoBehaviour
 
     public virtual void Beam(GameObject player, GameObject target, float range)
     {
-        if (target == null)
+        if (target == null || targetDist > range )
         {
-            return;
+            DestroySpell();
         }
 
-        // Set size of beam
-        Vector2 newScale = new Vector3(transform.localScale.x, range);
-        transform.localScale = newScale ;
+        print("beam!");
 
-        // Set Y rotation so beam is aimed at target
-        transform.up = (target.transform.position - transform.position);
-
-        // Correct beam position to fit with scale
-        float beamDist = Vector2.Distance(player.transform.position, target.transform.position);
-        if (beamDist <= transform.localScale.y / 2)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (transform.localScale.y / 2) + beamDist * 2);
-        }
-        else
-        {
-            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, (transform.localScale.y / 2));
-        }
         
+        if (targetDist <= range && target != null)
+        {
+            print("Beamed:" + target.gameObject.name);
+            
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
-        return;
+            Vector2 dir = (player.transform.position - target.transform.position);
+            transform.up = dir;
+            transform.position = LerpByDistance(player.transform.position, target.transform.position, targetDist / 2);
+            ScaleSpellY(gameObject, targetDist);
+
+            DamageEnemy(target, gameManager, Damage);
+        }
     }
 
     public virtual void DestroySpell()
     {
         Destroy(gameObject);
+    }
+
+    public virtual void DisableBoxCollider()
+    {
+        BoxCollider2D boxCollider2D = GetComponent<BoxCollider2D>();
+        boxCollider2D.enabled = false;
+    }
+
+    public Vector3 LerpByDistance(Vector3 A, Vector3 B, float x)
+    {
+        Vector3 P = x * Vector3.Normalize(B - A) + A;
+        return P;
+    }
+
+    public void ScaleSpellY(GameObject spellObj, float scale)
+    {
+        // Get the current local scale
+        Vector3 spriteScale = spellObj.transform.localScale;
+
+        // Set the y value of the local scale
+        spriteScale.y = scale;
+
+        // Apply the new scale to the sprite
+        spellObj.transform.localScale = spriteScale;
     }
 }

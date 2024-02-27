@@ -14,6 +14,7 @@ public class MagicMissile : Spell
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+
         Effects = new List<EffectTypes>
         {
             EffectTypes.autotarget
@@ -24,12 +25,12 @@ public class MagicMissile : Spell
         RangeType = RangeTypes.single;
         target = null;
 
-        GetClosestTarget(gameManager);
+        GetClosestTarget(gameManager, gameManager.player);
     }
 
     void Update()
     {
-        GetClosestTarget(gameManager);
+        GetClosestTarget(gameManager, gameManager.player);
 
         Move(target, speed);
     }

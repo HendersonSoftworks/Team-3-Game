@@ -11,8 +11,8 @@ public class RayOfFrost : Spell
     [SerializeField]
     private float timer;
 
-    private GameManager gameManager;
     private GameObject player;
+    private bool hitEnemy = false;
 
     void Start()
     {
@@ -22,15 +22,16 @@ public class RayOfFrost : Spell
             EffectTypes.autotarget
         };
 
+        RangeType = RangeTypes.beam;
+
         Recharge = 3.0f;
         Damage = damage;
         RangeType = RangeTypes.single;
         target = null;
 
-        GetClosestTarget(gameManager);
+        GetClosestTarget(gameManager, gameManager.player);
 
         player = GameObject.FindGameObjectWithTag("Player");
-        Beam(player, target, range);
     }
 
     void Update()
@@ -41,10 +42,27 @@ public class RayOfFrost : Spell
         {
             Destroy(gameObject);
         }
+
+        Beam(player, target, range);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnDrawGizmos()
     {
-        DamageEnemy(collision.gameObject, gameManager, damage);
+        if (target != null)
+        {
+            Gizmos.DrawLine(player.transform.position, target.transform.position);
+        }
+    }
+
+    public override void DamageEnemy(GameObject target, GameManager gameManager, float damage)
+    {
+        if (hitEnemy == true)
+        {
+            return;
+        }
+        
+        base.DamageEnemy(target, gameManager, damage);
+
+        hitEnemy = true;
     }
 }
