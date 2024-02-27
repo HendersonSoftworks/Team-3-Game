@@ -50,7 +50,7 @@ public class RayOfFrost : Spell
     {
         if (target != null)
         {
-            Gizmos.DrawLine(player.transform.position, target.transform.position);
+            //Gizmos.DrawLine(player.transform.position, target.transform.position);
         }
     }
 
