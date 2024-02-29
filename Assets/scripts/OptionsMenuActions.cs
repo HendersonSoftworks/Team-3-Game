@@ -11,6 +11,8 @@ public class OptionsMenuActions : MonoBehaviour
 
     public GameObject firstSelection;
 
+    PlaySounds playSounds;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,13 @@ public class OptionsMenuActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // If ESC is hit, goes back to start screen
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            playSounds = GetComponent<PlaySounds>();
+            playSounds.PlaySelectSound();
+            BackToStart();
+        }
     }
 
     // Back to start menu
