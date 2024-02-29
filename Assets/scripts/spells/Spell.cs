@@ -40,6 +40,9 @@ public class Spell : MonoBehaviour
     protected GameManager gameManager;
     protected SpriteRenderer spriteRenderer;
 
+    public bool canRecast;
+
+
     // Private properties
     private float targetDist;
 
@@ -77,6 +80,17 @@ public class Spell : MonoBehaviour
 
         // Clear target
         target = null;
+    }
+
+    public virtual bool ReturnCastFlag()
+    {
+        Timer -= Time.deltaTime;
+        if (Timer <= 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public virtual void GetClosestTarget(GameManager gameManager, GameObject player)
@@ -139,7 +153,11 @@ public class Spell : MonoBehaviour
         }
 
         spriteRenderer.enabled = true;
-        LookAtTarget(target, player);
+
+        if (target != null)
+        {
+            LookAtTarget(target, player);
+        }
 
         if (Effects.Contains(EffectTypes.autotarget))
         {
@@ -156,7 +174,8 @@ public class Spell : MonoBehaviour
         }
         
         if (targetDist <= range && target != null)
-        {            
+        {
+            spriteRenderer.enabled = true;
             LookAtTarget(player, target);
 
             transform.position = LerpByDistance(player.transform.position, target.transform.position, targetDist / 2);
@@ -168,7 +187,7 @@ public class Spell : MonoBehaviour
 
     public virtual void LookAtTarget(GameObject caster, GameObject target)
     {
-        if (target != null)
+        if (target != null && gameObject != null && caster != null)
         {
             Vector2 dir = (caster.transform.position - target.transform.position);
             transform.up = dir;

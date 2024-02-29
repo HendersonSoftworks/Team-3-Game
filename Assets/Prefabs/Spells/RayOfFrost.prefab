@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 117511174}
   m_Layer: 0
   m_Name: RayOfFrost
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,9 +53,11 @@ MonoBehaviour:
   target: {fileID: 0}
   impactAnimation: {fileID: 9165398013124548562, guid: 1521feb31b640e04b92b0df1b27f5fbe,
     type: 3}
+  canRecast: 0
   damage: 10
+  timer: 1
+  speed: 0
   range: 10
-  timer: 0.5
 --- !u!212 &1692534040655407956
 SpriteRenderer:
   m_ObjectHideFlags: 0

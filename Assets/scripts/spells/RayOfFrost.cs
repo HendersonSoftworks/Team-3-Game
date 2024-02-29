@@ -8,20 +8,20 @@ public class RayOfFrost : Spell
     private float damage;
     [SerializeField]
     private float timer;
+    [SerializeField]
+    private float speed;
+    [SerializeField]
+    private float range;
 
-    private GameObject player;
     private bool hitEnemy = false;
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        Damage = damage;
+        // Initialise spell stats
+        SetupSpell(damage, speed, Effect0, Effect1, Effect2, RangeTypes.beam, range, timer);
 
-        target = null;
-
+        // Get target
         GetClosestTarget(gameManager, gameManager.player);
-
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
@@ -33,7 +33,7 @@ public class RayOfFrost : Spell
             Destroy(gameObject);
         }
 
-        Beam(player, target, Range);
+        Beam(gameManager.player, target, Range);
     }
 
     private void OnDrawGizmos()

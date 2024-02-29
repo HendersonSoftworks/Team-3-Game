@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4686958053679984030}
   m_Layer: 0
   m_Name: MagicMissile
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,9 +54,11 @@ MonoBehaviour:
   target: {fileID: 0}
   impactAnimation: {fileID: 9165398013124548562, guid: cb284216c016b0f4190f79eea46230bc,
     type: 3}
+  canRecast: 0
   damage: 25
   speed: 10
   range: 20
+  timer: 1
 --- !u!212 &988116943177291916
 SpriteRenderer:
   m_ObjectHideFlags: 0

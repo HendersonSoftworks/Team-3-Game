@@ -27,6 +27,8 @@ public class MagicMissile : Spell
         GetClosestTarget(gameManager, gameManager.player);
 
         Move(gameManager.player, target, speed);
+
+        canRecast = ReturnCastFlag();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

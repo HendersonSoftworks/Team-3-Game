@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4686958053679984030}
   m_Layer: 0
   m_Name: FireBall
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,9 +54,11 @@ MonoBehaviour:
   target: {fileID: 0}
   impactAnimation: {fileID: 9165398013124548562, guid: eff1a3a9d0d10b040ba22cf6b41d7f60,
     type: 3}
+  canRecast: 0
   damage: 100
   speed: 4
-  range: 10
+  range: 60
+  timer: 5
 --- !u!212 &988116943177291916
 SpriteRenderer:
   m_ObjectHideFlags: 0

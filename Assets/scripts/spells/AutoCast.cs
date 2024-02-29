@@ -5,19 +5,23 @@ using UnityEngine;
 public class AutoCast : MonoBehaviour
 {
     [SerializeField]
-    private float timerReset; // these need to converted to arrays 
+    private float timer; // these need to converted to arrays 
     [SerializeField]
-    private float timer; // timer depends on the spell
+    private float timerReset; // these need to converted to arrays 
     [SerializeField]
     private GameManager gameManager;
     [SerializeField]
-    private Spell[] spells;
+    private GameObject[] spells;
+    [SerializeField]
+    private List<bool> spellsCanCast; // timer depends on the spell
 
     void Start()
     {
-        timer = timerReset;
         gameManager = FindObjectOfType<GameManager>();
+
         spells = gameManager.equippedSpells;
+
+        timer = timerReset;
     }
 
     void Update()
@@ -25,13 +29,19 @@ public class AutoCast : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            CastSpell();
             timer = timerReset;
+            CastSpells(spells);
         }
     }
 
-    public void CastSpell()
+    public void CastSpells(GameObject[] spells)
     {
-        Instantiate(gameManager.equippedSpells[0], transform.position, Quaternion.identity);
+        for (int i = 0; i < spells.Length; i++)
+        {
+            if (spells[i] != null && spellsCanCast[i])
+            {
+                Instantiate(spells[i], transform.position, Quaternion.identity);
+            }
+        }
     }
 }
