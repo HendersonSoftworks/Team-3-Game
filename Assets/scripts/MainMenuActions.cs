@@ -8,16 +8,28 @@ public class MainMenuActions : MonoBehaviour
 {
     // Menu screens
     public GameObject startMenu;
+    public GameObject pauseMenu;
     public GameObject optionsMenu;
 
+    // First selection on different screens
+    public GameObject firstSelectionPause;
     public GameObject firstSelectionOptions;
+
+    // Control flags
+    public bool isGamePaused = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
         startMenu.SetActive(true);
+        pauseMenu.SetActive(false);
         optionsMenu.SetActive(false);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
     }
 
     // Actions when start game is selected
@@ -33,12 +45,6 @@ public class MainMenuActions : MonoBehaviour
         startMenu.SetActive(false);
         optionsMenu.SetActive(true);
         EventSystem.current.SetSelectedGameObject(firstSelectionOptions);
-    }
-
-    // Open achievements screen
-    public void OpenAchievements()
-    {
-        Debug.Log("Open achievements pressed");
     }
 
     // Open credits screen
