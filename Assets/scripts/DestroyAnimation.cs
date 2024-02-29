@@ -14,7 +14,6 @@ public class DestroyAnimation : MonoBehaviour
 
     private void Start()
     {
-        
         animator = GetComponent<Animator>();
         animator.SetBool("impact", true);
     }

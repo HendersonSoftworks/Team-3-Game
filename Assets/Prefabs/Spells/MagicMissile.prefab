@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 988116943177291919}
+  - component: {fileID: 988116943177291912}
   - component: {fileID: 988116943177291916}
   - component: {fileID: 988116943177291914}
   - component: {fileID: 988116943177291915}
-  - component: {fileID: 988116943177291912}
   - component: {fileID: 4686958053679984030}
   m_Layer: 0
   m_Name: MagicMissile
@@ -35,6 +35,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &988116943177291912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988116943177291913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f12c7da0655a7469bebe44409787e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Effect0: 1
+  Effect1: 0
+  Effect2: 0
+  Effects: 
+  target: {fileID: 0}
+  impactAnimation: {fileID: 9165398013124548562, guid: cb284216c016b0f4190f79eea46230bc,
+    type: 3}
+  damage: 25
+  speed: 10
 --- !u!212 &988116943177291916
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -122,24 +143,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &988116943177291912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988116943177291913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73f12c7da0655a7469bebe44409787e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Effects: 
-  target: {fileID: 0}
-  impactAnimation: {fileID: 9165398013124548562, guid: cb284216c016b0f4190f79eea46230bc,
-    type: 3}
-  damage: 25
-  speed: 10
 --- !u!95 &4686958053679984030
 Animator:
   serializedVersion: 3

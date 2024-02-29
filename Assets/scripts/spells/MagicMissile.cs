@@ -9,18 +9,10 @@ public class MagicMissile : Spell
     [SerializeField]
     private float speed;
 
-    private GameManager gameManager;
-
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
 
-        Effects = new List<EffectTypes>
-        {
-            EffectTypes.autotarget
-        };
-
-        Recharge = 3.0f;
         Damage = damage;
         RangeType = RangeTypes.single;
         target = null;
@@ -32,7 +24,7 @@ public class MagicMissile : Spell
     {
         GetClosestTarget(gameManager, gameManager.player);
 
-        Move(target, speed);
+        Move(gameManager.player, target, speed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

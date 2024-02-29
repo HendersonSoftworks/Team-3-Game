@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -9,41 +10,76 @@ public class Spell : MonoBehaviour
     /// <summary>
     /// Frequency of casting spell.
     /// </summary>
-    public float Recharge { get; set; }
+    public float Speed { get; set; }
+    public float Timer { get; set; }
     public float Damage { get; set; }
+    public float Range { get; set; }
     public enum RangeTypes { single, area, chain, beam};
     
     /// <summary>
     /// Whether the spell targets a single enemy, an area, etc.
     /// </summary>
     public RangeTypes RangeType { get; set; }
-    public enum EffectTypes { autotarget, destroy, slow, paralyse, weaken, blind, push, control, fear, heal, poison, create, teleport};
-      
+    public enum EffectTypes { none, autotarget,burn, destroy, slow, paralyse, 
+                              blind, push, control, fear, heal, poison, 
+                              create, teleport, weaken,};
     /// <summary>
     /// Special effects that are activated upon casting / being hit by the spell. A spell can have multiple effects.
     /// </summary>
+    public EffectTypes Effect0;
+    public EffectTypes Effect1;
+    public EffectTypes Effect2;
     public List<EffectTypes> Effects;
-    
+
     /// <summary>
     /// Spell target is set during runtime
     /// </summary>
     public GameObject target;
     public GameObject impactAnimation;
+    
+    protected GameManager gameManager;
+    protected SpriteRenderer spriteRenderer;
 
-    public GameManager gameManager;
+    // Private properties
+    private float targetDist;
 
-    float targetDist;
-
-    private void Start()
+    public virtual void SetupSpell(float damage, float speed, 
+        EffectTypes effect0, EffectTypes effect1, EffectTypes effect2,
+        RangeTypes rangeType, float range
+        )
     {
+        // Set GM & Renderer
         gameManager = FindObjectOfType<GameManager>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.enabled = false;
+
+        // Set Damage
+        Damage = damage;
+
+        // Set Speed
+        Speed = speed;
+
+        // Set Effects
+        Effects = new List<EffectTypes>
+        {
+            effect0, effect1, effect2
+        };
+
+        // Set Range Type
+        RangeType = rangeType;
+
+        // Set Range
+        Range = range;
+
+        // Clear target
+        target = null;
     }
 
     public virtual void GetClosestTarget(GameManager gameManager, GameObject player)
     {
         if (gameManager.enemies.Length == 0)
         {
-            SelfDestruct();
+            DestroySpell();
             return;
         }
 
@@ -66,7 +102,8 @@ public class Spell : MonoBehaviour
             }
         }
 
-        targetDist = Vector2.Distance(player.transform.position, target.transform.position);
+        //targetDist = Vector2.Distance(player.transform.position, target.transform.position);
+        targetDist = Vector2.Distance(transform.position, target.transform.position);
     }
 
     public virtual void DamageEnemy(GameObject target, GameManager gameManager, float damage)
@@ -79,23 +116,26 @@ public class Spell : MonoBehaviour
         // Reduce health
         target.GetComponent<TomEnemy>().health -= damage;
 
-        if (Effects.Contains(EffectTypes.destroy) || target.GetComponent<TomEnemy>().health < 0.1)
+        if (target.GetComponent<TomEnemy>().health < 0.1)
         {
             Destroy(target);
         }
-    }
 
-    public virtual void SelfDestruct()
-    {
-        Destroy(gameObject);
-    }
-
-    public virtual void Move(GameObject target, float speed)
-    {
-        if (target == null)
+        if (RangeType == RangeTypes.single || RangeType == RangeTypes.area)
         {
-            return;
+            DestroySpell();
         }
+    }
+
+    public virtual void Move(GameObject player, GameObject target, float speed)
+    {
+        if (target == null || targetDist > Range)
+        {
+            DestroySpell();
+        }
+
+        spriteRenderer.enabled = true;
+        LookAtTarget(target,player);
 
         if (Effects.Contains(EffectTypes.autotarget))
         {
@@ -106,27 +146,26 @@ public class Spell : MonoBehaviour
 
     public virtual void Beam(GameObject player, GameObject target, float range)
     {
-        if (target == null || targetDist > range )
+        if (target == null || targetDist > Range)
         {
             DestroySpell();
         }
-
-        print("beam!");
-
         
         if (targetDist <= range && target != null)
-        {
-            print("Beamed:" + target.gameObject.name);
-            
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        {            
+            LookAtTarget(player, target);
 
-            Vector2 dir = (player.transform.position - target.transform.position);
-            transform.up = dir;
             transform.position = LerpByDistance(player.transform.position, target.transform.position, targetDist / 2);
             ScaleSpellY(gameObject, targetDist);
 
             DamageEnemy(target, gameManager, Damage);
         }
+    }
+
+    public virtual void LookAtTarget(GameObject caster, GameObject target)
+    {
+        Vector2 dir = (caster.transform.position - target.transform.position);
+        transform.up = dir;
     }
 
     public virtual void DestroySpell()

@@ -8,36 +8,27 @@ public class FireBall : Spell
     private float damage;
     [SerializeField]
     private float speed;
-
-    private GameManager gameManager;
-
     [SerializeField]
-    private List<GameObject> collisions;
+    private float range;
+    [SerializeField]
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        // Initialise spell stats
+        SetupSpell(damage, speed, Effect0, Effect1, Effect2, RangeTypes.area, range);
 
-        collisions = new List<GameObject>();
-
-        Effects = new List<EffectTypes>
-        {
-            EffectTypes.autotarget
-        };
-
-        Recharge = 3.0f;
-        Damage = Damage;
-        RangeType = RangeTypes.area;
-        target = null;
-
+        // Get target
         GetClosestTarget(gameManager, gameManager.player);
+
+        // Prevent duplicates
+        PreventFireBallCasting();
     }
 
     void Update()
     {
         GetClosestTarget(gameManager, gameManager.player);
 
-        Move(target, speed);
+        Move(gameManager.player, target, speed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -49,5 +40,15 @@ public class FireBall : Spell
     {
         // Create big explosion sprite
         base.DamageEnemy(target, gameManager, damage);
+    }
+
+    private void PreventFireBallCasting()
+    {
+        // Prevent FireBall from being cast if one already exists in the scene
+        FireBall[] otherFireBalls = FindObjectsOfType<FireBall>();
+        if (otherFireBalls.Length > 1)
+        {
+            DestroySpell();
+        }
     }
 }

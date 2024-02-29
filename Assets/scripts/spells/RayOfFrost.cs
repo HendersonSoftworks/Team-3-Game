@@ -7,8 +7,6 @@ public class RayOfFrost : Spell
     [SerializeField]
     private float damage;
     [SerializeField]
-    private float range;
-    [SerializeField]
     private float timer;
 
     private GameObject player;
@@ -17,16 +15,8 @@ public class RayOfFrost : Spell
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        Effects = new List<EffectTypes>
-        {
-            EffectTypes.autotarget
-        };
-
-        RangeType = RangeTypes.beam;
-
-        Recharge = 3.0f;
         Damage = damage;
-        RangeType = RangeTypes.single;
+
         target = null;
 
         GetClosestTarget(gameManager, gameManager.player);
@@ -43,7 +33,7 @@ public class RayOfFrost : Spell
             Destroy(gameObject);
         }
 
-        Beam(player, target, range);
+        Beam(player, target, Range);
     }
 
     private void OnDrawGizmos()
