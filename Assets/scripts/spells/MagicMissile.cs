@@ -8,15 +8,17 @@ public class MagicMissile : Spell
     private float damage;
     [SerializeField]
     private float speed;
+    [SerializeField]
+    private float range;
+    [SerializeField]
+    private float timer;
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        // Initialise spell stats
+        SetupSpell(damage, speed, Effect0, Effect1, Effect2, RangeTypes.area, range, timer);
 
-        Damage = damage;
-        RangeType = RangeTypes.single;
-        target = null;
-
+        // Get target
         GetClosestTarget(gameManager, gameManager.player);
     }
 

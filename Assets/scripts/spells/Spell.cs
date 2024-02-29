@@ -45,7 +45,8 @@ public class Spell : MonoBehaviour
 
     public virtual void SetupSpell(float damage, float speed, 
         EffectTypes effect0, EffectTypes effect1, EffectTypes effect2,
-        RangeTypes rangeType, float range
+        RangeTypes rangeType, float range,
+        float timer
         )
     {
         // Set GM & Renderer
@@ -70,6 +71,9 @@ public class Spell : MonoBehaviour
 
         // Set Range
         Range = range;
+
+        // Set Timer
+        Timer = timer;
 
         // Clear target
         target = null;
@@ -114,9 +118,9 @@ public class Spell : MonoBehaviour
         Instantiate(impactAnimation, target.transform.position, Quaternion.identity);
 
         // Reduce health
-        target.GetComponent<TomEnemy>().health -= damage;
+        target.GetComponent<Enemy>().health -= (int)damage;
 
-        if (target.GetComponent<TomEnemy>().health < 0.1)
+        if (target.GetComponent<Enemy>().health < 0.1)
         {
             Destroy(target);
         }
@@ -135,7 +139,7 @@ public class Spell : MonoBehaviour
         }
 
         spriteRenderer.enabled = true;
-        LookAtTarget(target,player);
+        LookAtTarget(target, player);
 
         if (Effects.Contains(EffectTypes.autotarget))
         {
@@ -164,8 +168,11 @@ public class Spell : MonoBehaviour
 
     public virtual void LookAtTarget(GameObject caster, GameObject target)
     {
-        Vector2 dir = (caster.transform.position - target.transform.position);
-        transform.up = dir;
+        if (target != null)
+        {
+            Vector2 dir = (caster.transform.position - target.transform.position);
+            transform.up = dir;
+        }
     }
 
     public virtual void DestroySpell()

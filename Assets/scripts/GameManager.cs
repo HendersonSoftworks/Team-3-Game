@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()

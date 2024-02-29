@@ -11,11 +11,12 @@ public class FireBall : Spell
     [SerializeField]
     private float range;
     [SerializeField]
+    private float timer;
 
     void Start()
     {
         // Initialise spell stats
-        SetupSpell(damage, speed, Effect0, Effect1, Effect2, RangeTypes.area, range);
+        SetupSpell(damage, speed, Effect0, Effect1, Effect2, RangeTypes.area, range, timer);
 
         // Get target
         GetClosestTarget(gameManager, gameManager.player);
@@ -34,12 +35,6 @@ public class FireBall : Spell
     private void OnCollisionEnter2D(Collision2D collision)
     {
         DamageEnemy(collision.gameObject, gameManager, damage);
-    }
-
-    public override void DamageEnemy(GameObject target, GameManager gameManager, float damage)
-    {
-        // Create big explosion sprite
-        base.DamageEnemy(target, gameManager, damage);
     }
 
     private void PreventFireBallCasting()
