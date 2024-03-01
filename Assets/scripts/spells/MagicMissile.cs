@@ -8,30 +8,27 @@ public class MagicMissile : Spell
     private float damage;
     [SerializeField]
     private float speed;
-
-    private GameManager gameManager;
+    [SerializeField]
+    private float range;
+    [SerializeField]
+    private float timer;
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        Effects = new List<EffectTypes>
-        {
-            EffectTypes.autotarget
-        };
+        // Initialise spell stats
+        SetupSpell(damage, speed, Effect0, Effect1, Effect2, RangeTypes.area, range, timer);
 
-        Recharge = 3.0f;
-        Damage = damage;
-        RangeType = RangeTypes.single;
-        target = null;
-
-        GetClosestTarget(gameManager);
+        // Get target
+        GetClosestTarget(gameManager, gameManager.player);
     }
 
     void Update()
     {
-        GetClosestTarget(gameManager);
+        GetClosestTarget(gameManager, gameManager.player);
 
-        Move(target, speed);
+        Move(gameManager.player, target, speed);
+
+        canRecast = ReturnCastFlag();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

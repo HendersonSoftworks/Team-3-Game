@@ -7,30 +7,21 @@ public class RayOfFrost : Spell
     [SerializeField]
     private float damage;
     [SerializeField]
-    private float range;
-    [SerializeField]
     private float timer;
+    [SerializeField]
+    private float speed;
+    [SerializeField]
+    private float range;
 
-    private GameManager gameManager;
-    private GameObject player;
+    private bool hitEnemy = false;
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        Effects = new List<EffectTypes>
-        {
-            EffectTypes.autotarget
-        };
+        // Initialise spell stats
+        SetupSpell(damage, speed, Effect0, Effect1, Effect2, RangeTypes.beam, range, timer);
 
-        Recharge = 3.0f;
-        Damage = damage;
-        RangeType = RangeTypes.single;
-        target = null;
-
-        GetClosestTarget(gameManager);
-
-        player = GameObject.FindGameObjectWithTag("Player");
-        Beam(player, target, range);
+        // Get target
+        GetClosestTarget(gameManager, gameManager.player);
     }
 
     void Update()
@@ -41,10 +32,27 @@ public class RayOfFrost : Spell
         {
             Destroy(gameObject);
         }
+
+        Beam(gameManager.player, target, Range);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnDrawGizmos()
     {
-        DamageEnemy(collision.gameObject, gameManager, damage);
+        if (target != null)
+        {
+            //Gizmos.DrawLine(player.transform.position, target.transform.position);
+        }
+    }
+
+    public override void DamageEnemy(GameObject target, GameManager gameManager, float damage)
+    {
+        if (hitEnemy == true)
+        {
+            return;
+        }
+        
+        base.DamageEnemy(target, gameManager, damage);
+
+        hitEnemy = true;
     }
 }
