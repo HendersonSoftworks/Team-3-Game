@@ -23,6 +23,11 @@ public class Enemy : MonoBehaviour
 
     private float coolDownTimer;
 
+    private void Awake()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player");
+    }
+
     // Start is called before the first frame update
     void Start()
     {

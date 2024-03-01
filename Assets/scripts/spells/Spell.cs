@@ -134,6 +134,11 @@ public class Spell : MonoBehaviour
         // Reduce health
         target.GetComponent<Enemy>().health -= (int)damage;
 
+        if (RangeType == RangeTypes.area)
+        {
+            
+        }
+
         if (target.GetComponent<Enemy>().health < 0.1)
         {
             Destroy(target);
@@ -143,6 +148,9 @@ public class Spell : MonoBehaviour
         {
             DestroySpell();
         }
+
+        // Check if last enemy destroyed
+
     }
 
     public virtual void Move(GameObject player, GameObject target, float speed)
