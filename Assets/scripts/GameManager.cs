@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public Text playerHealthUI;
     public Text[] spellSlotUI;
     // Level
+    [Header("Game Settings")]
     public int currentLevel;
     public int currentWave;
     public Text levelTextUI;
@@ -35,6 +36,16 @@ public class GameManager : MonoBehaviour
     // CTRL + M + L to expand all code regions
 
     public enum WavesTypes // not used
+    [Header("Control flags")]
+    public bool isGamePaused = false;
+    public bool isGameStarted = false;
+
+    PlaySounds playSounds;
+
+    // Modal screens
+    public GameObject pauseModal;
+
+    public enum WavesTypes
     {
         start,
         wisps, spiders, raves, wolves,      // Level 1, Haunted forest
@@ -49,24 +60,21 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        InitialiseWave();
 
+    }
+
+
+    public void StartGame()
+    {
         UpdateEnemyList();
 
         SetSpellUI();
 
         SetLevelWaveUI(currentLevel, currentWave);
 
-        UpdateEnemyList();
-    }
+        InitialiseWave();
 
-    void Update()
-    {
-        UpdateEnemyList();
-
-        SetPlayerUI();
-
-        ManageEnemyDestruction();
+        isGameStarted = true;
     }
 
     private void InitialiseWave()
@@ -180,6 +188,43 @@ public class GameManager : MonoBehaviour
             else
             {
                 spellSlotUI[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (isGameStarted && !isGamePaused)
+        {
+            UpdateEnemyList();
+
+            SetPlayerUI();
+
+            // If ESC is hit, pauses game and open pause menu
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("Game was paused");
+
+                isGamePaused = true;
+
+                pauseModal.SetActive(true);
+            }
+        }
+        else
+        {
+            if (isGamePaused)
+            {
+                // If ESC is hit, goes back to start screen
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    Debug.Log("Close pause menu");
+                    isGamePaused = false;
+
+                    playSounds = GetComponent<PlaySounds>();
+                    playSounds.PlaySelectSound();
+                    pauseModal.SetActive(false);
+                }
+
             }
         }
     }
