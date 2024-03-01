@@ -22,10 +22,20 @@ public class GameManager : MonoBehaviour
     public Text playerHealthUI;
     public Text[] spellSlotUI;
 
+    [Header("Game Settings")]
     public int currentLevel;
     public int currentWave;
     public Text levelTextUI;
     public Text waveTextUI;
+
+    [Header("Control flags")]
+    public bool isGamePaused = false;
+    public bool isGameStarted = false;
+
+    PlaySounds playSounds;
+
+    // Modal screens
+    public GameObject pauseModal;
 
     public enum WavesTypes
     {
@@ -42,6 +52,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
+    }
+
+
+    public void StartGame()
+    {
         UpdateEnemyList();
 
         SetSpellUI();
@@ -49,6 +65,8 @@ public class GameManager : MonoBehaviour
         SetLevelWaveUI(currentLevel, currentWave);
 
         InitialiseWave();
+
+        isGameStarted = true;
     }
 
     private void InitialiseWave()
@@ -158,9 +176,39 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        UpdateEnemyList();
+        if (isGameStarted && !isGamePaused)
+        {
+            UpdateEnemyList();
 
-        SetPlayerUI();
+            SetPlayerUI();
+
+            // If ESC is hit, pauses game and open pause menu
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("Game was paused");
+
+                isGamePaused = true;
+
+                pauseModal.SetActive(true);
+            }
+        }
+        else
+        {
+            if (isGamePaused)
+            {
+                // If ESC is hit, goes back to start screen
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    Debug.Log("Close pause menu");
+                    isGamePaused = false;
+
+                    playSounds = GetComponent<PlaySounds>();
+                    playSounds.PlaySelectSound();
+                    pauseModal.SetActive(false);
+                }
+
+            }
+        }
     }
 
     private void SetPlayerUI()
