@@ -55,6 +55,8 @@ MonoBehaviour:
   impactAnimation: {fileID: 9165398013124548562, guid: eff1a3a9d0d10b040ba22cf6b41d7f60,
     type: 3}
   canRecast: 0
+  castClip: {fileID: 8300000, guid: 1a1cbfd873bc0c94099d04ef6710de53, type: 3}
+  impactClip: {fileID: 8300000, guid: 10c08dc9218bafc46837ad2aa522acbd, type: 3}
   damage: 100
   speed: 4
   range: 60

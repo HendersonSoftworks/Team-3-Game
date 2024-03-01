@@ -15,9 +15,13 @@ public class AutoCast : MonoBehaviour
     [SerializeField]
     private List<bool> spellsCanCast; // timer depends on the spell
 
+    // Audio
+    AudioSource audioSource;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        audioSource = gameManager.GetComponent<AudioSource>();
 
         spells = gameManager.equippedSpells;
 
@@ -41,7 +45,13 @@ public class AutoCast : MonoBehaviour
             if (spells[i] != null && spellsCanCast[i])
             {
                 Instantiate(spells[i], transform.position, Quaternion.identity);
+                PlayCastSound(spells[i].GetComponent<Spell>().castClip); 
             }
         }
+    }
+
+    private void PlayCastSound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 }

@@ -41,7 +41,8 @@ public class Spell : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
 
     public bool canRecast;
-
+    public AudioClip castClip;
+    public AudioClip impactClip;
 
     // Private properties
     private float targetDist;
@@ -153,6 +154,11 @@ public class Spell : MonoBehaviour
             DestroySpell();
         }
 
+        // Audio
+        if (impactClip != null)
+        {
+            gameManager.GetComponent<AudioSource>().PlayOneShot(impactClip);
+        }
     }
 
     public virtual void Move(GameObject player, GameObject target, float speed)
