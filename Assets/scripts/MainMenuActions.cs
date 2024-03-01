@@ -6,14 +6,18 @@ using UnityEngine.EventSystems;
 
 public class MainMenuActions : MonoBehaviour
 {
-    // Menu screens
-    public GameObject startMenu;
-    public GameObject pauseMenu;
-    public GameObject optionsMenu;
+    // Game screens
+    public GameObject startScreen;
+    public GameObject optionsScreen;
+    public GameObject creditsScreen;
+
+    // Modal screens
+    public GameObject pauseModal;
 
     // First selection on different screens
     public GameObject firstSelectionPause;
     public GameObject firstSelectionOptions;
+    public GameObject firstSelectionCredits;
 
     // Control flags
     public bool isGamePaused = false;
@@ -22,9 +26,10 @@ public class MainMenuActions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startMenu.SetActive(true);
-        pauseMenu.SetActive(false);
-        optionsMenu.SetActive(false);
+        startScreen.SetActive(true);
+        pauseModal.SetActive(false);
+        optionsScreen.SetActive(false);
+        creditsScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -38,19 +43,20 @@ public class MainMenuActions : MonoBehaviour
         Debug.Log("Start game pressed");
     }
 
-    // Open options screen
+    // Open options menu
     public void OpenOptions()
     {
-        Debug.Log("Open options pressed");
-        startMenu.SetActive(false);
-        optionsMenu.SetActive(true);
+        startScreen.SetActive(false);
+        optionsScreen.SetActive(true);
         EventSystem.current.SetSelectedGameObject(firstSelectionOptions);
     }
 
     // Open credits screen
     public void OpenCredits()
     {
-        Debug.Log("Open credits pressed");
+        startScreen.SetActive(false);
+        creditsScreen.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(firstSelectionCredits);
     }
 
     // Open options screen
@@ -63,7 +69,6 @@ public class MainMenuActions : MonoBehaviour
         }
         #endif
 
-        Debug.Log("Exit game pressed");
         Application.Quit();
     }
 }

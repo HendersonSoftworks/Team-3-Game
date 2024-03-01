@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class OptionsMenuActions : MonoBehaviour
+public class CreditsScreenScript : MonoBehaviour
 {
-    // Menu screens
+    // Game screens
     public GameObject startScreen;
-    public GameObject optionsScreen;
+    public GameObject creditsScreen;
 
     public GameObject firstSelection;
 
@@ -35,7 +35,7 @@ public class OptionsMenuActions : MonoBehaviour
     public void BackToStart()
     {
         startScreen.SetActive(true);
-        optionsScreen.SetActive(false);
+        creditsScreen.SetActive(false);
         EventSystem.current.SetSelectedGameObject(firstSelection);
     }
 }
