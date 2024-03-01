@@ -9663,12 +9663,12 @@ PrefabInstance:
     - target: {fileID: 4975840985537331487, guid: d2276ddbf922a4587b7a29d6fc058e7e,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4975840985537331487, guid: d2276ddbf922a4587b7a29d6fc058e7e,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4975840985537331487, guid: d2276ddbf922a4587b7a29d6fc058e7e,
         type: 3}
@@ -9693,12 +9693,12 @@ PrefabInstance:
     - target: {fileID: 4975840985537331487, guid: d2276ddbf922a4587b7a29d6fc058e7e,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlaySelectSound
+      value: TogglePlayEffects
       objectReference: {fileID: 0}
     - target: {fileID: 4975840985537331487, guid: d2276ddbf922a4587b7a29d6fc058e7e,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: TogglePlayEffects
+      value: PlaySelectSound
       objectReference: {fileID: 0}
     - target: {fileID: 4975840985537331487, guid: d2276ddbf922a4587b7a29d6fc058e7e,
         type: 3}
