@@ -4,8 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class MainMenuActions : MonoBehaviour
+public class StartScreen : MonoBehaviour
 {
+    public GameObject gameManager;
+
+    // Levels
+    public GameObject hauntedForest;
+    public GameObject castleCourtyard;
+    public GameObject insideCastle;
+
     // Game screens
     public GameObject startScreen;
     public GameObject optionsScreen;
@@ -15,21 +22,27 @@ public class MainMenuActions : MonoBehaviour
     public GameObject pauseModal;
 
     // First selection on different screens
+    public GameObject firstSelection;
     public GameObject firstSelectionPause;
     public GameObject firstSelectionOptions;
     public GameObject firstSelectionCredits;
-
-    // Control flags
-    public bool isGamePaused = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        // Activate start screen
         startScreen.SetActive(true);
+
+        // Deactivate other screens
         pauseModal.SetActive(false);
         optionsScreen.SetActive(false);
         creditsScreen.SetActive(false);
+
+        // Deactivate levels
+        hauntedForest.SetActive(false);
+        castleCourtyard.SetActive(false);
+        insideCastle.SetActive(false);
     }
 
     // Update is called once per frame
@@ -37,10 +50,23 @@ public class MainMenuActions : MonoBehaviour
     {
     }
 
+    // Back to start menu
+    public void BackToStart()
+    {
+        startScreen.SetActive(true);
+        creditsScreen.SetActive(false);
+        optionsScreen.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(firstSelection);
+    }
+
     // Actions when start game is selected
     public void StartGame()
     {
-        Debug.Log("Start game pressed");
+        startScreen.SetActive(false);
+        hauntedForest.SetActive(true);
+
+        // Start game
+        gameManager.GetComponent<GameManager>().StartGame();
     }
 
     // Open options menu
@@ -51,7 +77,7 @@ public class MainMenuActions : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(firstSelectionOptions);
     }
 
-    // Open credits screen
+    // Open credits screen 
     public void OpenCredits()
     {
         startScreen.SetActive(false);

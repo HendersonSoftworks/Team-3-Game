@@ -11,6 +11,7 @@ public class PlaySounds : MonoBehaviour
 
     // Control flags
     public bool shouldPlayEffects = true;
+    public bool shouldPlayMusic = true;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,12 @@ public class PlaySounds : MonoBehaviour
     public void TogglePlayEffects(bool enabled)
     {
         shouldPlayEffects = enabled;
+    }
+
+    // Controls option to play/mute the music
+    public void TogglePlayMusic(bool enabled)
+    {
+        shouldPlayMusic = enabled;
     }
 
     // Triggers sound when users move between menu options

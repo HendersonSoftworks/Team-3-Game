@@ -29,6 +29,6 @@ public class DestroyAnimation : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-        } 
+        }
     }
 }
