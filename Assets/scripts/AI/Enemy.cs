@@ -90,6 +90,5 @@ public class Enemy : MonoBehaviour
 
             transform.Translate(new Vector2(xDiff, yDiff) * Time.deltaTime);
         }
-
     }
 }

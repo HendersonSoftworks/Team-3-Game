@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5316335917784017321}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.31, y: -3.65, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -69,7 +69,7 @@ MonoBehaviour:
   - {fileID: 988116943177291913, guid: cf6dcc4b74018794db9b74b13acc1f65, type: 3}
   - {fileID: 0}
   - {fileID: 0}
-  spellsCanCast: 0100000000
+  spellsCanCast: 0101010000
 --- !u!212 &5316335917784017323
 SpriteRenderer:
   m_ObjectHideFlags: 0

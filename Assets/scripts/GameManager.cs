@@ -19,15 +19,21 @@ public class GameManager : MonoBehaviour
     public GameObject[] bossPrefabs;
 
     [Header("UI Settings")]
+    // Player
     public Text playerHealthUI;
     public Text[] spellSlotUI;
-
+    // Level
     public int currentLevel;
     public int currentWave;
     public Text levelTextUI;
     public Text waveTextUI;
+    // Shop
+    public GameObject shopPanelUI;
 
-    public enum WavesTypes
+    // CTRL + M + O to collapse all code regions
+    // CTRL + M + L to expand all code regions
+
+    public enum WavesTypes // not used
     {
         start,
         wisps, spiders, raves, wolves,      // Level 1, Haunted forest
@@ -42,13 +48,24 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        InitialiseWave();
+
         UpdateEnemyList();
 
         SetSpellUI();
 
         SetLevelWaveUI(currentLevel, currentWave);
 
-        InitialiseWave();
+        UpdateEnemyList();
+    }
+
+    void Update()
+    {
+        UpdateEnemyList();
+
+        SetPlayerUI();
+
+        ManageEnemyDestruction();
     }
 
     private void InitialiseWave()
@@ -57,18 +74,6 @@ public class GameManager : MonoBehaviour
         player.transform.position = Vector2.zero;
 
         currentWave++;
-        if (currentWave > 0)
-        {
-            currentLevel = 1;
-        }
-        else if (currentWave > 4)
-        {
-            currentLevel = 2;
-        }
-        else if (currentWave > 8)
-        {
-            currentLevel = 3;
-        }
 
         // Spawn enemies
         switch (currentWave)
@@ -107,12 +112,13 @@ public class GameManager : MonoBehaviour
                 SpawnMinions(5, 10, minionPrefabs[0]);
                 break;
 
-            default: 
+            default:
+                print("Error - Enemy spawn failed");
                 break;
         }
 
         // Set UI
-        SetLevelWaveUI(currentWave, currentLevel);
+        SetLevelWaveUI(currentLevel, currentWave);
     }
 
     private void SpawnMinions(int randAmountMin, int randAmountMax, GameObject minion)
@@ -120,16 +126,23 @@ public class GameManager : MonoBehaviour
         // Get random num to spawn
         int randNum = UnityEngine.Random.Range(randAmountMin, randAmountMax);
 
-        print("Spawning " + randNum + " " + minion.name);
+        //print("Spawning " + randNum + " " + minion.name);
 
         // Calc random pos for each spawned enemy and spawn it
         for (int i = 0; i < randNum; i++)
         {
             int randX = UnityEngine.Random.Range(-10, 10);
             int randY = UnityEngine.Random.Range(-10, 10);
-            
-            Vector3 randPos = new Vector3(randX, randY, 0);
 
+            Vector3 randPos = new Vector3(randX, randY, 0);
+            if (Vector2.Distance(player.transform.position, randPos) <= 2 )
+            {
+                // Move enemies if they spawn too close to player
+                randX *= 2;
+                randY *= 2;
+                randPos = new Vector3(randX, randY, 0);
+            }
+            
             Instantiate(minion, randPos, Quaternion.identity);
         }
     }
@@ -137,6 +150,20 @@ public class GameManager : MonoBehaviour
     // Versions of this method, trying things out
     private void SetLevelWaveUI(int level, int wave)
     {
+        // Waves & Levels
+        if (currentWave > 0)
+        {
+            currentLevel = 1;
+        }
+        if (currentWave > 4)
+        {
+            currentLevel = 2;
+        }
+        if (currentWave > 8)
+        {
+            currentLevel = 3;
+        }
+
         levelTextUI.text = "Level: " + level.ToString();
         waveTextUI.text = "Wave: " + wave.ToString();
     }
@@ -156,25 +183,53 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        UpdateEnemyList();
-
-        SetPlayerUI();
-    }
-
     private void SetPlayerUI()
     {
+        // Health
         playerHealthUI.text = "Health: " + hitPoints.ToString();
     }
 
     public void UpdateEnemyList()
     {
-        enemies = GameObject.FindGameObjectsWithTag("Enemy"); // very bad practice to have this running every frame - will need to be changed
+        enemies = GameObject.FindGameObjectsWithTag("Enemy"); // very bad practice to have this running every frame - should be changed
+
+        // Check if last enemy
+        if (enemies.Length <= 0)
+        {
+            // Last enemy degeated, open shop and pause game
+            OpenShop();
+        }
+    }
+
+    public void OpenShop()
+    {
+        Time.timeScale = 0;
+        shopPanelUI.SetActive(true);
+    }
+
+    public void CloseShopAndInitNextWave()
+    {
+        shopPanelUI.SetActive(false);
+        Time.timeScale = 1;
+
+        InitialiseWave();
     }
 
     public void UpdateSpellTimers()
     {
 
+    }
+
+    public void ManageEnemyDestruction()
+    {
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            if (enemies[i].GetComponent<Enemy>().health <= 0)
+            {
+                Destroy(enemies[i]);
+
+                UpdateEnemyList();
+            }
+        }
     }
 }

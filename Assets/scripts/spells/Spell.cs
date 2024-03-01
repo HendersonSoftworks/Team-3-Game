@@ -131,25 +131,27 @@ public class Spell : MonoBehaviour
         
         Instantiate(impactAnimation, target.transform.position, Quaternion.identity);
 
-        // Reduce health
-        target.GetComponent<Enemy>().health -= (int)damage;
-
         if (RangeType == RangeTypes.area)
         {
-            
+            // Loop through all other enemies within the explosion and damage them too
+            foreach (var currentEnemy in gameManager.enemies)
+            {
+                var dist = Vector2.Distance(currentEnemy.transform.position, transform.position);
+                if (dist < 4 && currentEnemy != target)
+                {
+                    currentEnemy.GetComponent<Enemy>().health -= (int)damage;
+                }
+            }
         }
 
-        if (target.GetComponent<Enemy>().health < 0.1)
-        {
-            Destroy(target);
-        }
+        // Reduce enemy health
+        Enemy enemy = target.GetComponent<Enemy>();
+        enemy.health -= (int)damage;
 
         if (RangeType == RangeTypes.single || RangeType == RangeTypes.area)
         {
             DestroySpell();
         }
-
-        // Check if last enemy destroyed
 
     }
 
@@ -167,7 +169,7 @@ public class Spell : MonoBehaviour
             LookAtTarget(target, player);
         }
 
-        if (Effects.Contains(EffectTypes.autotarget))
+        if (Effects.Contains(EffectTypes.autotarget) && target != null)
         {
             transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
             return;
