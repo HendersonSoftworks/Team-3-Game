@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     // CTRL + M + O to collapse all code regions
     // CTRL + M + L to expand all code regions
 
-    public enum WavesTypes // not used
     [Header("Control flags")]
     public bool isGamePaused = false;
     public bool isGameStarted = false;
@@ -63,16 +62,58 @@ public class GameManager : MonoBehaviour
 
     }
 
+    void Update()
+    {
+        if (isGameStarted && !isGamePaused)
+        {
+            UpdateEnemyList();
+
+            SetPlayerUI();
+
+            ManageEnemyDestruction();
+
+            // If ESC is hit, pauses game and open pause menu
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("Game was paused");
+
+                isGamePaused = true;
+
+                pauseModal.SetActive(true);
+            }
+        }
+        else
+        {
+            if (isGamePaused)
+            {
+                // Pause game by setting timescale to 0
+                Time.timeScale = 0;
+
+                // If ESC is hit, goes back to start screen
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    Debug.Log("Close pause menu");
+                    isGamePaused = false;
+
+                    playSounds = GetComponent<PlaySounds>();
+                    playSounds.PlaySelectSound();
+                    pauseModal.SetActive(false);
+                    Time.timeScale = 1;
+                }
+
+            }
+        }
+    }
 
     public void StartGame()
     {
+        InitialiseWave();
+
         UpdateEnemyList();
 
         SetSpellUI();
 
         SetLevelWaveUI(currentLevel, currentWave);
-
-        InitialiseWave();
 
         isGameStarted = true;
     }
@@ -192,42 +233,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (isGameStarted && !isGamePaused)
-        {
-            UpdateEnemyList();
-
-            SetPlayerUI();
-
-            // If ESC is hit, pauses game and open pause menu
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Debug.Log("Game was paused");
-
-                isGamePaused = true;
-
-                pauseModal.SetActive(true);
-            }
-        }
-        else
-        {
-            if (isGamePaused)
-            {
-                // If ESC is hit, goes back to start screen
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    Debug.Log("Close pause menu");
-                    isGamePaused = false;
-
-                    playSounds = GetComponent<PlaySounds>();
-                    playSounds.PlaySelectSound();
-                    pauseModal.SetActive(false);
-                }
-
-            }
-        }
-    }
 
     private void SetPlayerUI()
     {
@@ -242,7 +247,7 @@ public class GameManager : MonoBehaviour
         // Check if last enemy
         if (enemies.Length <= 0)
         {
-            // Last enemy degeated, open shop and pause game
+            // Last enemy defeated, open shop and pause game
             OpenShop();
         }
     }
