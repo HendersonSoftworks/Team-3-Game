@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        player.SetActive(false);
     }
 
     void Update()
@@ -107,6 +107,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        player.SetActive(true);
+
         InitialiseWave();
 
         UpdateEnemyList();
