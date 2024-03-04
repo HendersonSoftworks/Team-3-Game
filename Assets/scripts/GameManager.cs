@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
     public bool isGamePaused = false;
     public bool isGameStarted = false;
 
-    // Game screens
     [Header("Game Screens")]
     StartScreen startScreen;
     public GameObject optionsScreen;
@@ -60,7 +59,17 @@ public class GameManager : MonoBehaviour
     public GameObject firstSelectionPause;
     public GameObject gameOverScreen;
 
+    [Header("Pause screen stats")]
+    public Text pauseLevelTextUI;
+    public Text pauseHealthTextUI;
+
+    public int gameDifficulty;
+    public String[] gameDifficultyTexts = new string[] { "Easy", "Normal", "Hard" };
+    public Text pauseGameDifficultyTextUI;
+
+
     PlaySounds playSounds;
+
 
     public enum WavesTypes
     {
@@ -315,11 +324,26 @@ public class GameManager : MonoBehaviour
             currentLevel = 3;
         }
 
-        levelTextUI.text = "Level: " + level.ToString();
-        waveTextUI.text = "Wave: " + wave.ToString();
+        levelTextUI.text = "Level: " + currentLevel.ToString();
+        waveTextUI.text = "Wave: " + (wave - ((currentLevel - 1) * 4)).ToString();
+
+        switch (currentLevel)
+        {
+            case 1:
+                pauseLevelTextUI.text = "Haunted Forest";
+                break;
+            case 2:
+                pauseLevelTextUI.text = "Castle Courtyard";
+                break;
+            case 3:
+                pauseLevelTextUI.text = "Inside Castle";
+                break;
+        }
+
+        pauseLevelTextUI.text = pauseLevelTextUI.text + " - Wave " + (wave - ((currentLevel - 1) * 4)).ToString();
     }
 
-    private void SetSpellUI()
+        private void SetSpellUI()
     {
         for (int i = 0; i < equippedSpells.Length; i++)
         {
@@ -383,5 +407,11 @@ public class GameManager : MonoBehaviour
                 UpdateEnemyList();
             }
         }
+    }
+
+    public void SetGameDifficulty(int difficulty)
+    {
+        gameDifficulty = difficulty;
+        pauseGameDifficultyTextUI.text = gameDifficultyTexts[difficulty];
     }
 }
