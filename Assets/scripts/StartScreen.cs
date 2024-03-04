@@ -88,7 +88,7 @@ public class StartScreen : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(firstSelectionOptions);
     }
 
-    // Open credits screen 
+    // Open credits screen
     public void OpenCredits()
     {
         startScreen.SetActive(false);
