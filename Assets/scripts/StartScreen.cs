@@ -9,21 +9,19 @@ public class StartScreen : MonoBehaviour
     public GameObject gameManager;
 
     // Levels
+    public GameObject levels;
     public GameObject hauntedForest;
     public GameObject castleCourtyard;
     public GameObject insideCastle;
 
     // Game screens
     public GameObject startScreen;
+    public GameObject pauseScreen;
     public GameObject optionsScreen;
     public GameObject creditsScreen;
 
-    // Modal screens
-    public GameObject pauseModal;
-
     // First selection on different screens
     public GameObject firstSelection;
-    public GameObject firstSelectionPause;
     public GameObject firstSelectionOptions;
     public GameObject firstSelectionCredits;
 
@@ -31,31 +29,34 @@ public class StartScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Activate start screen
-        startScreen.SetActive(true);
+        DeactivateLevels();
+        ActivateStartScreen();
+    }
 
-        // Deactivate other screens
-        pauseModal.SetActive(false);
-        optionsScreen.SetActive(false);
-        creditsScreen.SetActive(false);
-
-        // Deactivate levels
+    // Deactivate levels
+    private void DeactivateLevels()
+    {
+        levels.SetActive(false);
         hauntedForest.SetActive(false);
         castleCourtyard.SetActive(false);
         insideCastle.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    // Activate start screen
+    private void ActivateStartScreen()
     {
+        startScreen.SetActive(true);
+
+        // Deactivate other screens
+        pauseScreen.SetActive(false);
+        optionsScreen.SetActive(false);
+        creditsScreen.SetActive(false);
     }
 
     // Back to start menu
     public void BackToStart()
     {
-        startScreen.SetActive(true);
-        creditsScreen.SetActive(false);
-        optionsScreen.SetActive(false);
+        ActivateStartScreen();
         EventSystem.current.SetSelectedGameObject(firstSelection);
     }
 
@@ -63,10 +64,20 @@ public class StartScreen : MonoBehaviour
     public void StartGame()
     {
         startScreen.SetActive(false);
+
+        levels.SetActive(true);
         hauntedForest.SetActive(true);
 
         // Start game
         gameManager.GetComponent<GameManager>().StartGame();
+    }
+
+    // Actions when end game is selected
+    public void EndGame()
+    {
+        gameManager.GetComponent<GameManager>().EndGame();
+
+        Start();
     }
 
     // Open options menu
@@ -77,7 +88,7 @@ public class StartScreen : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(firstSelectionOptions);
     }
 
-    // Open credits screen 
+    // Open credits screen
     public void OpenCredits()
     {
         startScreen.SetActive(false);

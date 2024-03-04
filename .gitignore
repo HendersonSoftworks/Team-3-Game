@@ -28,6 +28,7 @@
 
 # MacOS meta
 .DS_Store
+.idea
 
 # Gradle cache directory
 .gradle/

@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class PlaySounds : MonoBehaviour
 {
-    public AudioClip moveSound;
-    public AudioClip selectSound;
-
-    AudioSource sound;
+    public AudioSource soundMove;
+    public AudioSource soundSelect;
+    public AudioSource soundMusic;
 
     // Control flags
     public bool shouldPlayEffects = true;
     public bool shouldPlayMusic = true;
+    public bool shouldMuteWhenLostFocus = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        sound = GetComponent<AudioSource>();
     }
 
     // Controls option to play/mute sound effects
@@ -28,7 +27,22 @@ public class PlaySounds : MonoBehaviour
     // Controls option to play/mute the music
     public void TogglePlayMusic(bool enabled)
     {
-        shouldPlayMusic = enabled;
+        if (enabled)
+        {
+            shouldPlayMusic = true;
+            soundMusic.UnPause();
+        }
+        else
+        {
+            shouldPlayMusic = false;
+            soundMusic.Pause();
+        }
+    }
+
+    // Controls option to play/mute the music
+    public void ToggleMuteWhenLostFocus(bool enabled)
+    {
+        shouldMuteWhenLostFocus = enabled;
     }
 
     // Triggers sound when users move between menu options
@@ -36,7 +50,7 @@ public class PlaySounds : MonoBehaviour
     {
         if (shouldPlayEffects)
         {
-            sound.PlayOneShot(moveSound);
+            soundMove.Play();
         }
     }
 
@@ -45,8 +59,26 @@ public class PlaySounds : MonoBehaviour
     {
         if (shouldPlayEffects)
         {
-            sound.PlayOneShot(selectSound);
+            soundSelect.Play();
         }
     }
 
+    // Starts playing music 
+    public void PlayMusic()
+    {
+        if (shouldPlayMusic)
+        {
+            soundMusic.Play();
+        }
+    }
+
+    // Starts playing music 
+    public void PlayMusic(AudioClip music)
+    {
+        if (shouldPlayMusic)
+        {
+            soundMusic.clip = music;
+            soundMusic.Play();
+        }
+    }
 }
