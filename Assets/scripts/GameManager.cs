@@ -198,6 +198,12 @@ public class GameManager : MonoBehaviour
         player.SetActive(false);
     }
 
+    public void RestartGame()
+    {
+        isGamePaused = false;
+
+    }
+
     public void CloseScreen()
     {
         if (isGamePaused)
