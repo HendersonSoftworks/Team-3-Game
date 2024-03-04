@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     // Player
     public Text playerHealthUI;
     public Text[] spellSlotUI;
+
     // Level
     [Header("Game Settings")]
     public int currentLevel;
@@ -32,17 +34,32 @@ public class GameManager : MonoBehaviour
     // Shop
     public GameObject shopPanelUI;
 
+    public GameObject levels;
+    public GameObject hauntedForest;
+    public GameObject castleCourtyard;
+    public GameObject insideCastle;
+
     // CTRL + M + O to collapse all code regions
     // CTRL + M + L to expand all code regions
+
+    [Header("Audio Settings")]
+    public AudioClip startScreenClip;
+    public AudioClip hauntedForestClip;
+    public AudioClip castleCourtyardClip;
+    public AudioClip insideCastleClip;
 
     [Header("Control flags")]
     public bool isGamePaused = false;
     public bool isGameStarted = false;
 
-    PlaySounds playSounds;
+    // Game screens
+    [Header("Game Screens")]
+    StartScreen startScreen;
+    public GameObject pauseScreen;
+    public GameObject firstSelectionPause;
+    public GameObject gameOverScreen;
 
-    // Modal screens
-    public GameObject pauseModal;
+    PlaySounds playSounds;
 
     public enum WavesTypes
     {
@@ -64,44 +81,78 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isGameStarted && !isGamePaused)
+        if (isGameStarted)
         {
-            UpdateEnemyList();
-
-            SetPlayerUI();
-
-            ManageEnemyDestruction();
-
-            // If ESC is hit, pauses game and open pause menu
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (isGamePaused)
             {
-                Debug.Log("Game was paused");
-
-                isGamePaused = true;
-
-                pauseModal.SetActive(true);
+                GameIsPaused(false);
+            }
+            else
+            {
+                GameIsPlaying();
             }
         }
         else
         {
-            if (isGamePaused)
+            // If ESC is hit, goes back to start screen
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                // Pause game by setting timescale to 0
-                Time.timeScale = 0;
-
-                // If ESC is hit, goes back to start screen
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    Debug.Log("Close pause menu");
-                    isGamePaused = false;
-
-                    playSounds = GetComponent<PlaySounds>();
-                    playSounds.PlaySelectSound();
-                    pauseModal.SetActive(false);
-                    Time.timeScale = 1;
-                }
-
+                startScreen = GetComponent<StartScreen>();
+                startScreen.BackToStart();
             }
+        }
+    }
+
+    void GameIsPlaying()
+    {
+        UpdateEnemyList();
+
+        SetPlayerUI();
+
+        ManageEnemyDestruction();
+
+        // If ESC is hit, pauses game and open pause menu
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            isGamePaused = true;
+            pauseScreen.SetActive(true);
+            levels.SetActive(false);
+            hauntedForest.SetActive(false);
+            castleCourtyard.SetActive(false);
+            insideCastle.SetActive(false);
+            EventSystem.current.SetSelectedGameObject(firstSelectionPause);
+        }
+    }
+
+    public void GameIsPaused(bool resume)
+    {
+        // Pause game by setting timescale to 0
+        Time.timeScale = 0;
+
+        // If ESC is hit or resume button is clicked, goes back to game
+        if (Input.GetKeyDown(KeyCode.Escape) || resume)
+        {
+            isGamePaused = false;
+
+            playSounds = GetComponent<PlaySounds>();
+            playSounds.PlaySelectSound();
+
+            levels.SetActive(true);
+            switch (currentLevel)
+            {
+                case 1:
+                    hauntedForest.SetActive(true);
+                    break;
+                case 2:
+                    castleCourtyard.SetActive(true);
+                    break;
+                case 3:
+                    insideCastle.SetActive(true);
+                    break;
+            }
+            pauseScreen.SetActive(false);
+
+            Time.timeScale = 1;
         }
     }
 
@@ -117,7 +168,22 @@ public class GameManager : MonoBehaviour
 
         SetLevelWaveUI(currentLevel, currentWave);
 
+        playSounds = GetComponent<PlaySounds>();
+        playSounds.PlayMusic(hauntedForestClip);
+
         isGameStarted = true;
+    }
+
+    public void EndGame()
+    {
+        currentLevel = 0;
+        currentWave = 0;
+        enemies = null;
+
+        roundCount = 0;
+        hitPoints = 0;
+
+        player.SetActive(false);
     }
 
     private void InitialiseWave()
