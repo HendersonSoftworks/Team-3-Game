@@ -9463,20 +9463,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1909494056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1909494052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6a1aabc986a441349fe3517a4715cf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameManager: {fileID: 1909494052}
-  startScreen: {fileID: 1931388009}
 --- !u!82 &1909494057
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11302,6 +11288,11 @@ PrefabInstance:
       objectReference: {fileID: 257124028}
     - target: {fileID: 1762291269101432386, guid: 41341d69bd835384cb4bd3b756628fed,
         type: 3}
+      propertyPath: optionsScreen
+      value: 
+      objectReference: {fileID: 917258973}
+    - target: {fileID: 1762291269101432386, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
       propertyPath: playerHealthUI
       value: 
       objectReference: {fileID: 1269424305}
@@ -11469,6 +11460,11 @@ PrefabInstance:
       propertyPath: soundSelect
       value: 
       objectReference: {fileID: 1909494055}
+    - target: {fileID: 1976494271249773369, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
+      propertyPath: volumeSlider
+      value: 
+      objectReference: {fileID: 1180835047}
     - target: {fileID: 5418831292467598876, guid: 41341d69bd835384cb4bd3b756628fed,
         type: 3}
       propertyPath: m_Pitch
