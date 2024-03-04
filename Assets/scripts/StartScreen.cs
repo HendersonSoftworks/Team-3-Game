@@ -84,6 +84,7 @@ public class StartScreen : MonoBehaviour
     public void OpenOptions()
     {
         startScreen.SetActive(false);
+        pauseScreen.SetActive(false);
         optionsScreen.SetActive(true);
         EventSystem.current.SetSelectedGameObject(firstSelectionOptions);
     }
