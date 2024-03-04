@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     // Game screens
     [Header("Game Screens")]
     StartScreen startScreen;
+    public GameObject optionsScreen;
     public GameObject pauseScreen;
     public GameObject firstSelectionPause;
     public GameObject gameOverScreen;
@@ -130,7 +131,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
 
         // If ESC is hit or resume button is clicked, goes back to game
-        if (Input.GetKeyDown(KeyCode.Escape) || resume)
+        if ((Input.GetKeyDown(KeyCode.Escape) && pauseScreen.activeInHierarchy) || resume)
         {
             isGamePaused = false;
 
@@ -153,6 +154,14 @@ public class GameManager : MonoBehaviour
             pauseScreen.SetActive(false);
 
             Time.timeScale = 1;
+        }
+        else
+        {
+            // If ESC is hit on other screens, close it
+            if (Input.GetKeyDown(KeyCode.Escape) && !pauseScreen.activeInHierarchy)
+            {
+                CloseScreen();
+            }
         }
     }
 
@@ -183,7 +192,25 @@ public class GameManager : MonoBehaviour
         roundCount = 0;
         hitPoints = 0;
 
+        isGamePaused = false;
+        isGameStarted = false;
+
         player.SetActive(false);
+    }
+
+    public void CloseScreen()
+    {
+        if (isGamePaused)
+        {
+            optionsScreen.SetActive(false);
+            pauseScreen.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(firstSelectionPause);
+        }
+        else
+        {
+            startScreen = GetComponent<StartScreen>();
+            startScreen.BackToStart();
+        }
     }
 
     private void InitialiseWave()
@@ -260,7 +287,7 @@ public class GameManager : MonoBehaviour
                 randY *= 2;
                 randPos = new Vector3(randX, randY, 0);
             }
-            
+
             Instantiate(minion, randPos, Quaternion.identity);
         }
     }
