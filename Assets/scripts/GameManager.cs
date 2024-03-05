@@ -31,8 +31,11 @@ public class GameManager : MonoBehaviour
     public int currentWave;
     public Text levelTextUI;
     public Text waveTextUI;
-    // Shop
+    // UI
+    [Header("HUD & Spell Shop")]
     public GameObject shopPanelUI;
+    public GameObject hudPanel;
+    public GameObject spellListPanel;
 
     public GameObject levels;
     public GameObject hauntedForest;
@@ -343,7 +346,7 @@ public class GameManager : MonoBehaviour
         pauseLevelTextUI.text = pauseLevelTextUI.text + " - Wave " + (wave - ((currentLevel - 1) * 4)).ToString();
     }
 
-        private void SetSpellUI()
+    private void SetSpellUI()
     {
         for (int i = 0; i < equippedSpells.Length; i++)
         {
@@ -357,7 +360,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
 
     private void SetPlayerUI()
     {
@@ -380,12 +382,18 @@ public class GameManager : MonoBehaviour
     public void OpenShop()
     {
         Time.timeScale = 0;
+
+        hudPanel.SetActive(false);
+        spellListPanel.SetActive(false);
         shopPanelUI.SetActive(true);
     }
 
     public void CloseShopAndInitNextWave()
     {
         shopPanelUI.SetActive(false);
+        hudPanel.SetActive(true);
+        spellListPanel.SetActive(true);
+
         Time.timeScale = 1;
 
         InitialiseWave();
