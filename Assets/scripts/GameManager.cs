@@ -193,13 +193,24 @@ public class GameManager : MonoBehaviour
         playSounds.PlayMusic(hauntedForestClip);
 
         isGameStarted = true;
+        Time.timeScale = 1;
     }
 
     public void EndGame()
     {
         currentLevel = 0;
         currentWave = 0;
-        enemies = null;
+
+        // Cleanup scene
+        foreach (var enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+        
+        foreach (var spell in GameObject.FindGameObjectsWithTag("Spell"))
+        {
+            Destroy(spell);
+        }
 
         roundCount = 0;
         hitPoints = 0;
@@ -334,12 +345,21 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 pauseLevelTextUI.text = "Haunted Forest";
+                hauntedForest.SetActive(true);
+                castleCourtyard.SetActive(false);
+                insideCastle.SetActive(false);
                 break;
             case 2:
                 pauseLevelTextUI.text = "Castle Courtyard";
+                hauntedForest.SetActive(false);
+                castleCourtyard.SetActive(true);
+                insideCastle.SetActive(false);
                 break;
             case 3:
                 pauseLevelTextUI.text = "Inside Castle";
+                hauntedForest.SetActive(false);
+                castleCourtyard.SetActive(false);
+                insideCastle.SetActive(true);
                 break;
         }
 

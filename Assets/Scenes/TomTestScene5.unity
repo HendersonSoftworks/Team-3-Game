@@ -1059,6 +1059,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -36.551147
       objectReference: {fileID: 0}
+    - target: {fileID: 801492845392933560, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: m_Text
+      value: Continue
+      objectReference: {fileID: 0}
     - target: {fileID: 801492845394345200, guid: 14709be27f7cc87459b6d715b0453373,
         type: 3}
       propertyPath: m_IsActive
@@ -1124,6 +1129,36 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 801492845609266604, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 801492845609266604, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 801492845609266604, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1909494054}
+    - target: {fileID: 801492845609266604, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 801492845609266604, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseShopAndInitNextWave
+      objectReference: {fileID: 0}
+    - target: {fileID: 801492845609266604, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 801492845609266607, guid: 14709be27f7cc87459b6d715b0453373,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1137,7 +1172,7 @@ PrefabInstance:
     - target: {fileID: 801492845609266607, guid: 14709be27f7cc87459b6d715b0453373,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 640
       objectReference: {fileID: 0}
     - target: {fileID: 801492845609266607, guid: 14709be27f7cc87459b6d715b0453373,
         type: 3}
@@ -1147,7 +1182,7 @@ PrefabInstance:
     - target: {fileID: 801492845609266607, guid: 14709be27f7cc87459b6d715b0453373,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 801492845609266607, guid: 14709be27f7cc87459b6d715b0453373,
         type: 3}
@@ -1363,6 +1398,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -36.551147
+      objectReference: {fileID: 0}
+    - target: {fileID: 801492846604920201, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 801492846604920246, guid: 14709be27f7cc87459b6d715b0453373,
         type: 3}
@@ -1719,6 +1759,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6928202404470569815, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: inventoryPanel
+      value: 
+      objectReference: {fileID: 779275043}
+    - target: {fileID: 6928202404470569815, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: spellSelectionPanel
+      value: 
+      objectReference: {fileID: 1380148699}
     - target: {fileID: 7293303937404354192, guid: 14709be27f7cc87459b6d715b0453373,
         type: 3}
       propertyPath: m_Name
@@ -2265,6 +2315,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 757532396}
   m_CullTransparentMesh: 0
+--- !u!1 &779275043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 801492845394345200, guid: 14709be27f7cc87459b6d715b0453373,
+    type: 3}
+  m_PrefabInstance: {fileID: 206028153}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &783106293
 GameObject:
   m_ObjectHideFlags: 0
@@ -2991,6 +3047,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1380148699 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 801492845307498315, guid: 14709be27f7cc87459b6d715b0453373,
+    type: 3}
+  m_PrefabInstance: {fileID: 206028153}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1414114548
 GameObject:
   m_ObjectHideFlags: 0
@@ -4535,6 +4597,11 @@ PrefabInstance:
       objectReference: {fileID: 1773008807}
     - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
         type: 3}
+      propertyPath: hudPanel
+      value: 
+      objectReference: {fileID: 1433235176}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
       propertyPath: waveTextUI
       value: 
       objectReference: {fileID: 1184247285}
@@ -4573,6 +4640,11 @@ PrefabInstance:
       propertyPath: playerHealthUI
       value: 
       objectReference: {fileID: 1269424305}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
+      propertyPath: spellListPanel
+      value: 
+      objectReference: {fileID: 1631069475}
     - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
         type: 3}
       propertyPath: castleCourtyard
