@@ -9,7 +9,7 @@ public class StartScreen : MonoBehaviour
     public GameObject gameManager;
 
     // Levels
-    public GameObject levels;
+    public GameObject gameLevels;
     public GameObject hauntedForest;
     public GameObject castleCourtyard;
     public GameObject insideCastle;
@@ -36,7 +36,7 @@ public class StartScreen : MonoBehaviour
     // Deactivate levels
     private void DeactivateLevels()
     {
-        levels.SetActive(false);
+        gameLevels.SetActive(false);
         hauntedForest.SetActive(false);
         castleCourtyard.SetActive(false);
         insideCastle.SetActive(false);
@@ -65,7 +65,7 @@ public class StartScreen : MonoBehaviour
     {
         startScreen.SetActive(false);
 
-        levels.SetActive(true);
+        gameLevels.SetActive(true);
         hauntedForest.SetActive(true);
 
         // Start game
@@ -84,6 +84,7 @@ public class StartScreen : MonoBehaviour
     public void OpenOptions()
     {
         startScreen.SetActive(false);
+        pauseScreen.SetActive(false);
         optionsScreen.SetActive(true);
         EventSystem.current.SetSelectedGameObject(firstSelectionOptions);
     }

@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlaySounds : MonoBehaviour
 {
     public AudioSource soundMove;
     public AudioSource soundSelect;
     public AudioSource soundMusic;
+
+    public Slider volumeSlider;
 
     // Control flags
     public bool shouldPlayEffects = true;
@@ -31,11 +34,13 @@ public class PlaySounds : MonoBehaviour
         {
             shouldPlayMusic = true;
             soundMusic.UnPause();
+            volumeSlider.enabled = true;
         }
         else
         {
             shouldPlayMusic = false;
             soundMusic.Pause();
+            volumeSlider.enabled = false;
         }
     }
 
