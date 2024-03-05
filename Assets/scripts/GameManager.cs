@@ -31,8 +31,11 @@ public class GameManager : MonoBehaviour
     public int currentWave;
     public Text levelTextUI;
     public Text waveTextUI;
-    // Shop
+    // UI
+    [Header("HUD & Spell Shop")]
     public GameObject shopPanelUI;
+    public GameObject hudPanel;
+    public GameObject spellListPanel;
 
     public GameObject levels;
     public GameObject hauntedForest;
@@ -190,13 +193,24 @@ public class GameManager : MonoBehaviour
         playSounds.PlayMusic(hauntedForestClip);
 
         isGameStarted = true;
+        Time.timeScale = 1;
     }
 
     public void EndGame()
     {
         currentLevel = 0;
         currentWave = 0;
-        enemies = null;
+
+        // Cleanup scene
+        foreach (var enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+        
+        foreach (var spell in GameObject.FindGameObjectsWithTag("Spell"))
+        {
+            Destroy(spell);
+        }
 
         roundCount = 0;
         hitPoints = 0;
@@ -331,19 +345,28 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 pauseLevelTextUI.text = "Haunted Forest";
+                hauntedForest.SetActive(true);
+                castleCourtyard.SetActive(false);
+                insideCastle.SetActive(false);
                 break;
             case 2:
                 pauseLevelTextUI.text = "Castle Courtyard";
+                hauntedForest.SetActive(false);
+                castleCourtyard.SetActive(true);
+                insideCastle.SetActive(false);
                 break;
             case 3:
                 pauseLevelTextUI.text = "Inside Castle";
+                hauntedForest.SetActive(false);
+                castleCourtyard.SetActive(false);
+                insideCastle.SetActive(true);
                 break;
         }
 
         pauseLevelTextUI.text = pauseLevelTextUI.text + " - Wave " + (wave - ((currentLevel - 1) * 4)).ToString();
     }
 
-        private void SetSpellUI()
+    private void SetSpellUI()
     {
         for (int i = 0; i < equippedSpells.Length; i++)
         {
@@ -357,7 +380,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
 
     private void SetPlayerUI()
     {
@@ -380,12 +402,18 @@ public class GameManager : MonoBehaviour
     public void OpenShop()
     {
         Time.timeScale = 0;
+
+        hudPanel.SetActive(false);
+        spellListPanel.SetActive(false);
         shopPanelUI.SetActive(true);
     }
 
     public void CloseShopAndInitNextWave()
     {
         shopPanelUI.SetActive(false);
+        hudPanel.SetActive(true);
+        spellListPanel.SetActive(true);
+
         Time.timeScale = 1;
 
         InitialiseWave();

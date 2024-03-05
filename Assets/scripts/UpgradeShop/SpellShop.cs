@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class SpellShop : MonoBehaviour
 {
-    public Canvas canvas;
+    //public Canvas canvas;
 
     public Text[] spellNameTexts; // Array of Text components for displaying spell names
     public Text[] spellDescriptionTexts; // Array of Text components for displaying spell descriptions
@@ -32,6 +32,9 @@ public class SpellShop : MonoBehaviour
     public Text spellPopupCostText; // Text component for displaying spell cost in the pop-up window
     public Text inventoryFull; // Text component for displaying the inventory full text in the pop-up window
     public Text inventoryFullDes; // Text component for displaying the inventroy full description text in the pop-up window
+
+    public GameObject spellSelectionPanel;
+    public GameObject inventoryPanel;
 
     // References to the cancel and purchase buttons
     public Button cancelPurchaseButton;
@@ -292,6 +295,9 @@ public class SpellShop : MonoBehaviour
 
         // Activate the pop-up window
         spellPopupWindow.SetActive(true);
+        spellSelectionPanel.SetActive(false);
+        inventoryPanel.SetActive(false);
+
         isPopupActive = true;
     }
 
@@ -299,6 +305,9 @@ public class SpellShop : MonoBehaviour
     {
         // Close the pop-up window without making a purchase
         spellPopupWindow.SetActive(false);
+        spellSelectionPanel.SetActive(true);
+        inventoryPanel.SetActive(true);
+
         isPopupActive = false;
     }
 
@@ -355,6 +364,9 @@ public class SpellShop : MonoBehaviour
 
         // Close the pop-up window after confirming purchase
         spellPopupWindow.SetActive(false);
+        spellSelectionPanel.SetActive(true);
+        inventoryPanel.SetActive(true);
+
         isPopupActive = false;
 
         // Update the inventory UI
@@ -365,6 +377,9 @@ public class SpellShop : MonoBehaviour
     {
         // Close the pop-up window
         spellPopupWindow.SetActive(false);
+        spellSelectionPanel.SetActive(true);
+        inventoryPanel.SetActive(true);
+
         isPopupActive = false;
     }
 
