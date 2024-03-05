@@ -6,7 +6,7 @@ using System.Timers;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    public GameObject Player;
+    private GameObject Player;
     public GameObject Projectile;
 
     private float xDiff;
@@ -18,12 +18,14 @@ public class EnemyProjectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        seconds = 15f;
+        Player = GameObject.Find("Player"); 
+
+        seconds = 25f;
         movementSpeed = 0.8f;
 
         float movement;
-        xDiff = (Player.transform.position.x - Projectile.transform.position.x);
-        yDiff = (Player.transform.position.y - Projectile.transform.position.y);
+        xDiff = (Player.transform.position.x - transform.position.x);
+        yDiff = (Player.transform.position.y - transform.position.y);
 
         movement = Math.Abs(xDiff) + Math.Abs(yDiff);
         movement = movementSpeed / movement;

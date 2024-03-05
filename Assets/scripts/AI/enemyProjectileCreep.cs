@@ -7,8 +7,9 @@ using System.Timers;
 public class enemyProjectileCreep : MonoBehaviour
 {
 
-    public GameObject Player;
-    public GameObject creep;
+    private GameObject Player;
+
+    public GameObject enemyProjectile;
 
     public float movementSpeed;
     public int health;
@@ -21,6 +22,8 @@ public class enemyProjectileCreep : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Player = GameObject.Find("Player");
+
         Shooting = false;
         Fleeing = false;
 
@@ -29,14 +32,15 @@ public class enemyProjectileCreep : MonoBehaviour
         //movement speed is lower for ranged attack mobs
         movementSpeed = 0.6F;
         health = 100;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         float movement;
-        float xDiff = (Player.transform.position.x - creep.transform.position.x);
-        float yDiff = (Player.transform.position.y - creep.transform.position.y);
+        float xDiff = (Player.transform.position.x - transform.position.x);
+        float yDiff = (Player.transform.position.y - transform.position.y);
 
         float distance = (float)Math.Sqrt(
             (xDiff * xDiff)
@@ -57,11 +61,12 @@ public class enemyProjectileCreep : MonoBehaviour
 
             if (coolDownTimer > 2.5f)
             {
-                //Instantiate(enemyProjectile, transform.position, transform.rotation);
+                Instantiate(enemyProjectile, transform.position, transform.rotation);
                 Shooting = false;
             }
             else if (coolDownTimer > 0.5f)
             {
+                //add animation
                 //charging up spell , creating projectile animation.
             }
 
@@ -88,7 +93,7 @@ public class enemyProjectileCreep : MonoBehaviour
                 transform.Translate(new Vector2(xDiff, yDiff) * Time.deltaTime);
                 if (distance < 3)
                 {
-                    Fleeing = false;
+                    Fleeing = true;
                 }
             }
         }
