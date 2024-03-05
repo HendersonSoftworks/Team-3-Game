@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     [Header("Control flags")]
     public bool isGamePaused = false;
     public bool isGameStarted = false;
+    public bool shouldPauseWhenLostFocus = true;
 
     [Header("Game Screens")]
     StartScreen startScreen;
@@ -127,13 +128,7 @@ public class GameManager : MonoBehaviour
         // If ESC is hit, pauses game and open pause menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isGamePaused = true;
-            pauseScreen.SetActive(true);
-            levels.SetActive(false);
-            hauntedForest.SetActive(false);
-            castleCourtyard.SetActive(false);
-            insideCastle.SetActive(false);
-            EventSystem.current.SetSelectedGameObject(firstSelectionPause);
+            PauseGame();
         }
     }
 
@@ -145,27 +140,7 @@ public class GameManager : MonoBehaviour
         // If ESC is hit or resume button is clicked, goes back to game
         if ((Input.GetKeyDown(KeyCode.Escape) && pauseScreen.activeInHierarchy) || resume)
         {
-            isGamePaused = false;
-
-            playSounds = GetComponent<PlaySounds>();
-            playSounds.PlaySelectSound();
-
-            levels.SetActive(true);
-            switch (currentLevel)
-            {
-                case 1:
-                    hauntedForest.SetActive(true);
-                    break;
-                case 2:
-                    castleCourtyard.SetActive(true);
-                    break;
-                case 3:
-                    insideCastle.SetActive(true);
-                    break;
-            }
-            pauseScreen.SetActive(false);
-
-            Time.timeScale = 1;
+            UnPauseGame();
         }
         else
         {
@@ -193,6 +168,44 @@ public class GameManager : MonoBehaviour
         playSounds.PlayMusic(hauntedForestClip);
 
         isGameStarted = true;
+        Time.timeScale = 1;
+    }
+
+    public void PauseGame()
+    {
+        isGamePaused = true;
+
+        pauseScreen.SetActive(true);
+        levels.SetActive(false);
+        hauntedForest.SetActive(false);
+        castleCourtyard.SetActive(false);
+        insideCastle.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(firstSelectionPause);
+    }
+
+    public void UnPauseGame()
+    {
+        isGamePaused = false;
+
+        playSounds = GetComponent<PlaySounds>();
+        playSounds.PlaySelectSound();
+
+        levels.SetActive(true);
+        switch (currentLevel)
+        {
+            case 1:
+                hauntedForest.SetActive(true);
+                break;
+            case 2:
+                castleCourtyard.SetActive(true);
+                break;
+            case 3:
+                insideCastle.SetActive(true);
+                break;
+        }
+        pauseScreen.SetActive(false);
+
         Time.timeScale = 1;
     }
 
@@ -441,5 +454,23 @@ public class GameManager : MonoBehaviour
     {
         gameDifficulty = difficulty;
         pauseGameDifficultyTextUI.text = gameDifficultyTexts[difficulty];
+    }
+
+    // Controls option to pause game when focus is lost
+    public void TogglePauseWhenLostFocus(bool enabled)
+    {
+        shouldPauseWhenLostFocus = enabled;
+    }
+
+    // Gets notified when application loses or gains focus
+    void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus)
+        {
+            if (isGameStarted && shouldPauseWhenLostFocus)
+            {
+                PauseGame();
+            }
+        }
     }
 }
