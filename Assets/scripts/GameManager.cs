@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     public Text pauseLevelTextUI;
     public Text pauseHealthTextUI;
 
-    public int gameDifficulty;
+    public int gameDifficulty = 0;
     public String[] gameDifficultyTexts = new string[] { "Easy", "Normal", "Hard" };
     public Text pauseGameDifficultyTextUI;
 
@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(enemy);
         }
-        
+
         foreach (var spell in GameObject.FindGameObjectsWithTag("Spell"))
         {
             Destroy(spell);
@@ -262,47 +262,12 @@ public class GameManager : MonoBehaviour
 
         currentWave++;
 
-        // Spawn enemies
-        switch (currentWave)
-        {
-            case 1:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 2:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 3:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 4:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 5:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 6:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 7:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 8:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 9:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 10:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 11:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
+        // Number of enemies increase depending on wave and game difficulty
+        var min = 5 + currentWave + gameDifficulty;
+        var max = 10 + currentWave + (gameDifficulty * 2);
 
-            default:
-                print("Error - Enemy spawn failed");
-                break;
-        }
+        // Spawn enemies
+        SpawnMinions(min, max, minionPrefabs[0]);
 
         // Set UI
         SetLevelWaveUI(currentLevel, currentWave);
