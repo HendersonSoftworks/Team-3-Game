@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     [Header("Control flags")]
     public bool isGamePaused = false;
     public bool isGameStarted = false;
+    public bool shouldPauseWhenLostFocus = true;
 
     [Header("Game Screens")]
     StartScreen startScreen;
@@ -66,7 +67,7 @@ public class GameManager : MonoBehaviour
     public Text pauseLevelTextUI;
     public Text pauseHealthTextUI;
 
-    public int gameDifficulty;
+    public int gameDifficulty = 0;
     public String[] gameDifficultyTexts = new string[] { "Easy", "Normal", "Hard" };
     public Text pauseGameDifficultyTextUI;
 
@@ -127,13 +128,7 @@ public class GameManager : MonoBehaviour
         // If ESC is hit, pauses game and open pause menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isGamePaused = true;
-            pauseScreen.SetActive(true);
-            levels.SetActive(false);
-            hauntedForest.SetActive(false);
-            castleCourtyard.SetActive(false);
-            insideCastle.SetActive(false);
-            EventSystem.current.SetSelectedGameObject(firstSelectionPause);
+            PauseGame();
         }
     }
 
@@ -145,27 +140,7 @@ public class GameManager : MonoBehaviour
         // If ESC is hit or resume button is clicked, goes back to game
         if ((Input.GetKeyDown(KeyCode.Escape) && pauseScreen.activeInHierarchy) || resume)
         {
-            isGamePaused = false;
-
-            playSounds = GetComponent<PlaySounds>();
-            playSounds.PlaySelectSound();
-
-            levels.SetActive(true);
-            switch (currentLevel)
-            {
-                case 1:
-                    hauntedForest.SetActive(true);
-                    break;
-                case 2:
-                    castleCourtyard.SetActive(true);
-                    break;
-                case 3:
-                    insideCastle.SetActive(true);
-                    break;
-            }
-            pauseScreen.SetActive(false);
-
-            Time.timeScale = 1;
+            UnPauseGame();
         }
         else
         {
@@ -196,6 +171,44 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void PauseGame()
+    {
+        isGamePaused = true;
+
+        pauseScreen.SetActive(true);
+        levels.SetActive(false);
+        hauntedForest.SetActive(false);
+        castleCourtyard.SetActive(false);
+        insideCastle.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(firstSelectionPause);
+    }
+
+    public void UnPauseGame()
+    {
+        isGamePaused = false;
+
+        playSounds = GetComponent<PlaySounds>();
+        playSounds.PlaySelectSound();
+
+        levels.SetActive(true);
+        switch (currentLevel)
+        {
+            case 1:
+                hauntedForest.SetActive(true);
+                break;
+            case 2:
+                castleCourtyard.SetActive(true);
+                break;
+            case 3:
+                insideCastle.SetActive(true);
+                break;
+        }
+        pauseScreen.SetActive(false);
+
+        Time.timeScale = 1;
+    }
+
     public void EndGame()
     {
         currentLevel = 0;
@@ -206,7 +219,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(enemy);
         }
-        
+
         foreach (var spell in GameObject.FindGameObjectsWithTag("Spell"))
         {
             Destroy(spell);
@@ -249,47 +262,12 @@ public class GameManager : MonoBehaviour
 
         currentWave++;
 
-        // Spawn enemies
-        switch (currentWave)
-        {
-            case 1:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 2:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 3:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 4:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 5:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 6:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 7:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 8:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 9:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 10:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
-            case 11:
-                SpawnMinions(5, 10, minionPrefabs[0]);
-                break;
+        // Number of enemies increase depending on wave and game difficulty
+        var min = 5 + currentWave + gameDifficulty;
+        var max = 10 + currentWave + (gameDifficulty * 2);
 
-            default:
-                print("Error - Enemy spawn failed");
-                break;
-        }
+        // Spawn enemies
+        SpawnMinions(min, max, minionPrefabs[0]);
 
         // Set UI
         SetLevelWaveUI(currentLevel, currentWave);
@@ -441,5 +419,23 @@ public class GameManager : MonoBehaviour
     {
         gameDifficulty = difficulty;
         pauseGameDifficultyTextUI.text = gameDifficultyTexts[difficulty];
+    }
+
+    // Controls option to pause game when focus is lost
+    public void TogglePauseWhenLostFocus(bool enabled)
+    {
+        shouldPauseWhenLostFocus = enabled;
+    }
+
+    // Gets notified when application loses or gains focus
+    void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus)
+        {
+            if (isGameStarted && shouldPauseWhenLostFocus)
+            {
+                PauseGame();
+            }
+        }
     }
 }

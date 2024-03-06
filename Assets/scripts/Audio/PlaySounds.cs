@@ -86,4 +86,20 @@ public class PlaySounds : MonoBehaviour
             soundMusic.Play();
         }
     }
+
+    // Gets notified when application loses or gains focus
+    void OnApplicationFocus(bool hasFocus)
+    {
+        if (hasFocus)
+        {
+            soundMusic.UnPause();
+        }
+        else
+        {
+            if (shouldMuteWhenLostFocus)
+            {
+                soundMusic.Pause();
+            }
+        }
+    }
 }
