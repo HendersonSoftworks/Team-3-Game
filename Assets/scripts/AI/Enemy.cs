@@ -6,7 +6,8 @@ using System;
 public class Enemy : MonoBehaviour
 {
 
-    private GameObject Player;
+    public GameObject Player;
+    public GameManager gameManager;
 
     public float movementSpeed;
     public int health;
@@ -14,7 +15,9 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("Player");
+        gameManager = FindObjectOfType<GameManager>();
+
+        Player = gameManager.player;
 
         movementSpeed = 0.8F;
         health = 100;
