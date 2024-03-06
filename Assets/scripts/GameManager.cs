@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
     public AudioClip castleCourtyardClip;
     public AudioClip insideCastleClip;
 
+
     [Header("Control flags")]
     public bool isGamePaused = false;
     public bool isGameStarted = false;
@@ -74,7 +75,6 @@ public class GameManager : MonoBehaviour
 
     PlaySounds playSounds;
 
-
     public enum WavesTypes
     {
         start,
@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player.SetActive(false);
+
     }
 
     void Update()
@@ -163,6 +164,7 @@ public class GameManager : MonoBehaviour
         SetSpellUI();
 
         SetLevelWaveUI(currentLevel, currentWave);
+
 
         playSounds = GetComponent<PlaySounds>();
         playSounds.PlayMusic(hauntedForestClip);
