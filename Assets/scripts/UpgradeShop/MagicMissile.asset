@@ -15,4 +15,6 @@ MonoBehaviour:
   spellName: Sugar Spell
   description: This is the Sugar Spell
   cost: 500
-  icon: {fileID: 21300000, guid: e92fc44f12c21dd44a49e390f39f7ffd, type: 3}
+  icon: {fileID: 21300000, guid: 7ff2b477832c2d74790dae2320dc5c72, type: 3}
+  spellPrefab: {fileID: 988116943177291913, guid: 31deb83c89ebfab468759f8733c0b96e,
+    type: 3}

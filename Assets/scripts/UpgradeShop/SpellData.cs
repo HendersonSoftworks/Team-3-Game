@@ -7,6 +7,7 @@ public class SpellData : ScriptableObject
     public string description;
     public int cost;
     public Sprite icon;
+    public GameObject spellPrefab;
 }
 
 
