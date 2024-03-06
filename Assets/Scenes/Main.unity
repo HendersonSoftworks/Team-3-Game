@@ -4065,6 +4065,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Options Screen
       objectReference: {fileID: 0}
+    - target: {fileID: 4841636956705965022, guid: 0c98a0cf568884d9f8145633d7270724,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4841636956831821355, guid: 0c98a0cf568884d9f8145633d7270724,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
