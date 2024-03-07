@@ -67,16 +67,8 @@ MonoBehaviour:
   - 0
   enemies: []
   minionPrefabs:
-  - {fileID: 4164157842141035894, guid: 0d19be2b8856f2943bc988f14f7c92a0, type: 3}
-  - {fileID: 499311442267119274, guid: d0f2af4fcb781654b95f2ab344b6fc2c, type: 3}
-  - {fileID: 3852933949624403967, guid: 84b6e45c0bbe3fe46ad70f57bb59c9c8, type: 3}
-  - {fileID: 8961581446400419396, guid: 1ed989e870a849c409e2c6c10d61032a, type: 3}
-  - {fileID: 3287569808875111007, guid: 770ff9392e8bb30408f41ddce8a02070, type: 3}
-  bossPrefabs:
-  - {fileID: 7412459769220631959, guid: 97395ebb4337b7045ac68ec8e7ef31ef, type: 3}
-  - {fileID: 8438422979290568713, guid: bff23f99e73608e4f817b6e961f2a220, type: 3}
-  - {fileID: 9013889777700986023, guid: 6d4b164855d1b9640b6ee3d9190cc5d3, type: 3}
-  currency: {fileID: 884999558690518614, guid: 84c54a9516edcbf4e92db6104b6d1d70, type: 3}
+  - {fileID: 7310460692404559910, guid: fcb89c90bfaef8e4f96f4790205d58af, type: 3}
+  bossPrefabs: []
   playerHealthUI: {fileID: 0}
   spellSlotUI:
   - {fileID: 0}

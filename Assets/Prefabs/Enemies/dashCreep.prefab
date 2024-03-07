@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4800775052315490764}
   - component: {fileID: 489144230077389194}
   - component: {fileID: 5929634389645340809}
-  - component: {fileID: 7193976623824685756}
   m_Layer: 0
   m_Name: dashCreep
   m_TagString: Enemy
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 499311442267119274}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -117,10 +116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac265213653c25647a547b7c0800d1f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargePause: 2
-  chargeTime: 2
-  chargeCooldown: 2
-  movementSpeed: 2
+  chargePause: 0
+  chargeTime: 0
+  chargeCooldown: 0
+  movementSpeed: 0
   health: 0
 --- !u!114 &5929634389645340809
 MonoBehaviour:
@@ -134,20 +133,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 843a19d0edc5b5048b53923d932c683f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
---- !u!58 &7193976623824685756
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 499311442267119274}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.16
+  health: 0
