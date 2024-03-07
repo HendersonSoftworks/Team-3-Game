@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemies;
     public GameObject[] minionPrefabs;
     public GameObject[] bossPrefabs;
+    // coin prefab
+    public GameObject currency;
 
     [Header("UI Settings")]
     // Player
@@ -200,6 +202,12 @@ public class GameManager : MonoBehaviour
     {
         currentLevel = 0;
         currentWave = 0;
+
+        //enemy projectiles cleanup
+        foreach (var projectile in GameObject.FindGameObjectsWithTag("Projectile"))
+        {
+            Destroy(projectile);
+        }
 
         // Cleanup scene
         foreach (var enemy in enemies)
@@ -428,8 +436,10 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < enemies.Length; i++)
         {
-            if (enemies[i].GetComponent<Enemy>().health <= 0)
+            if (enemies[i].GetComponent<enemyHealth>().health <= 0)
             {
+                //create a coin before deleting the enemy
+                Instantiate(currency, new Vector3(enemies[i].transform.position.x, enemies[i].transform.position.y,0), transform.rotation);
                 Destroy(enemies[i]);
 
                 UpdateEnemyList();

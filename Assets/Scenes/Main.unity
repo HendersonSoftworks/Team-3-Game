@@ -4597,6 +4597,12 @@ PrefabInstance:
       objectReference: {fileID: 1773008807}
     - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
         type: 3}
+      propertyPath: currency
+      value: 
+      objectReference: {fileID: 884999558690518614, guid: 84c54a9516edcbf4e92db6104b6d1d70,
+        type: 3}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
       propertyPath: hudPanel
       value: 
       objectReference: {fileID: 1433235176}
@@ -4667,6 +4673,34 @@ PrefabInstance:
       objectReference: {fileID: 710789493}
     - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
         type: 3}
+      propertyPath: bossPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
+      propertyPath: minionPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
+      propertyPath: bossPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 7412459769220631959, guid: 97395ebb4337b7045ac68ec8e7ef31ef,
+        type: 3}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
+      propertyPath: bossPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 8438422979290568713, guid: bff23f99e73608e4f817b6e961f2a220,
+        type: 3}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
+      propertyPath: bossPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 9013889777700986023, guid: 6d4b164855d1b9640b6ee3d9190cc5d3,
+        type: 3}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
       propertyPath: pauseGameDifficultyTextUI
       value: 
       objectReference: {fileID: 821422162}
@@ -4695,6 +4729,24 @@ PrefabInstance:
       propertyPath: spellSlotUI.Array.data[4]
       value: 
       objectReference: {fileID: 95520175}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
+      propertyPath: minionPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 499311442267119274, guid: d0f2af4fcb781654b95f2ab344b6fc2c,
+        type: 3}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
+      propertyPath: minionPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 3852933949624403967, guid: 84b6e45c0bbe3fe46ad70f57bb59c9c8,
+        type: 3}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
+      propertyPath: minionPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 4164157842141035894, guid: 0d19be2b8856f2943bc988f14f7c92a0,
+        type: 3}
     - target: {fileID: 7810527433149197294, guid: 41341d69bd835384cb4bd3b756628fed,
         type: 3}
       propertyPath: gameLevels

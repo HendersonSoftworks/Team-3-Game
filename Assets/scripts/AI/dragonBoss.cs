@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using System;
 using System.Timers;
 
@@ -32,9 +31,10 @@ public class dragonBoss : MonoBehaviour
     void Start()
     {
 
-        Player = GameObject.Find("Player");
+        Player = GameObject.FindWithTag("Player");
 
         health = 700;
+        this.GetComponent<enemyHealth>().health = 700;
         movementSpeed = 0.8f;
 
         changePos = true;
@@ -63,11 +63,6 @@ public class dragonBoss : MonoBehaviour
         else if (health > 0)
         {
             PhaseTwo();
-        }
-
-        if (health <= 0)
-        {
-            Destroy(gameObject);
         }
 
     }

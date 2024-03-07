@@ -140,13 +140,13 @@ public class Spell : MonoBehaviour
                 var dist = Vector2.Distance(currentEnemy.transform.position, transform.position);
                 if (dist < 4 && currentEnemy != target)
                 {
-                    currentEnemy.GetComponent<Enemy>().health -= (int)damage;
+                    currentEnemy.GetComponent<enemyHealth>().health -= (int)damage;
                 }
             }
         }
 
         // Reduce enemy health
-        Enemy enemy = target.GetComponent<Enemy>();
+        enemyHealth enemy = target.GetComponent<enemyHealth>();
         enemy.health -= (int)damage;
 
         if (RangeType == RangeTypes.single || RangeType == RangeTypes.area)

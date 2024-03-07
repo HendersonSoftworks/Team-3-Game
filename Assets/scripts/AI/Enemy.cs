@@ -14,9 +14,10 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("Player");
+        Player = GameObject.FindWithTag("Player");
 
         movementSpeed = 0.8F;
+        this.GetComponent<enemyHealth>().health = 100;
         health = 100;
     }
 
