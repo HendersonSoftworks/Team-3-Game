@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyHealth : MonoBehaviour
+public class Coin : MonoBehaviour
 {
-    public float health;
-    public float Damage;
     public GameManager gameManager;
-
+    // Start is called before the first frame update
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -17,8 +15,9 @@ public class enemyHealth : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Player loses health");
-            gameManager.hitPoints -= Damage;
+            Debug.Log("Player earns currency");
+            gameManager.Money += 10;
+            Destroy(gameObject);
         }
     }
 }
