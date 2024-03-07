@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7722163043794887448}
   - component: {fileID: 6375312044949974211}
   - component: {fileID: -5266654406446114945}
+  - component: {fileID: 8289169648835154984}
   m_Layer: 0
   m_Name: Werewolf
   m_TagString: Enemy
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7412459769220631959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -97,11 +98,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Summon: {fileID: 8961581446400419396, guid: 1ed989e870a849c409e2c6c10d61032a, type: 3}
-  chargePause: 0
-  chargeTime: 0
-  chargeCooldown: 0
-  movementSpeed: 0
-  health: 0
+  chargePause: 10
+  chargeTime: 10
+  chargeCooldown: 10
+  movementSpeed: 10
+  health: 10
 --- !u!114 &-5266654406446114945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,4 +115,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 843a19d0edc5b5048b53923d932c683f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 100
+--- !u!58 &8289169648835154984
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7412459769220631959}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.16

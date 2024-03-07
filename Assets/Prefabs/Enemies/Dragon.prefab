@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8438422979290568727}
   - component: {fileID: 3645053248357995577}
   - component: {fileID: -2935474850032003509}
+  - component: {fileID: -7094265158881518038}
   m_Layer: 0
   m_Name: Dragon
   m_TagString: Enemy
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8438422979290568713}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.5, y: -3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -97,11 +98,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyProjectile: {fileID: 5846784654757988203, guid: b5afa29bf1ccf6c48b669ec178fb3b4f,
     type: 3}
-  movementSpeed: 0
-  health: 0
-  chargePause: 0
-  chargeTime: 0
-  chargeCooldown: 0
+  movementSpeed: 10
+  health: 10
+  chargePause: 10
+  chargeTime: 10
+  chargeCooldown: 10
 --- !u!114 &-2935474850032003509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,4 +115,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 843a19d0edc5b5048b53923d932c683f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 800
+--- !u!58 &-7094265158881518038
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8438422979290568713}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.16

@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     public GameObject Player;
 
     public float movementSpeed;
-    public int health;
+    //public int health; no longer needed
 
     // Start is called before the first frame update
     void Start()

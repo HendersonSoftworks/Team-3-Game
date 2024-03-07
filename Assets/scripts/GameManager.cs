@@ -283,7 +283,51 @@ public class GameManager : MonoBehaviour
         var max = 10 + currentWave + (gameDifficulty * 2);
 
         // Spawn enemies
-        SpawnMinions(min, max, minionPrefabs[0]);
+        switch (currentWave)
+        {
+            case 1:
+                SpawnMinions(min, max, minionPrefabs[2]);   // Wisps
+                break;
+            case 2:
+                SpawnMinions(min, max, minionPrefabs[0]);   // Spiders
+                break;
+            case 3:
+                SpawnMinions(min, max, minionPrefabs[1]);   // Ravens
+                break;
+            case 4:
+                SpawnMinions(min, max, minionPrefabs[1]);   // Ravens
+                SpawnBoss(bossPrefabs[0]);                  // Werewolf
+                break;
+            case 5:
+                SpawnMinions(min, max, minionPrefabs[3]);   // Serpents
+                break;
+            case 6:
+                SpawnMinions(min, max, minionPrefabs[0]);   // Ravens
+                SpawnMinions(min, max, minionPrefabs[3]);   // Serpents
+                break;
+            case 7:
+                SpawnBoss(bossPrefabs[1]);                  // Dragon
+                SpawnMinions(min, max, minionPrefabs[3]);   // Serpents
+                break;
+            case 8:
+                SpawnMinions(min, max, minionPrefabs[4]);   // Skeletons
+                break;
+            case 9:
+                SpawnMinions(min, max, minionPrefabs[4]);   // Skeletons
+                SpawnMinions(min, max, minionPrefabs[2]);   // Wisps
+                break;
+            case 10:
+                SpawnMinions(min, max, minionPrefabs[4]);   // Skeletons
+                SpawnMinions(min, max, minionPrefabs[2]);   // Wisps
+                SpawnMinions(min, max, minionPrefabs[0]);   // spiders
+                break;
+            case 11:
+                SpawnMinions(min, max, minionPrefabs[4]);   // Skeletons
+                SpawnBoss(bossPrefabs[2]);                  // Ancient Wizard
+                break;
+            default:
+                break;
+        }
 
         // Set UI
         SetLevelWaveUI(currentLevel, currentWave);
@@ -316,10 +360,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SpawnBoss(GameObject bossPrefab)
+    {
+        Vector3 bossPos = new Vector3(0, 2.5f, 0);
+        Instantiate(bossPrefab, bossPos, Quaternion.identity);
+    }
+
     // Versions of this method, trying things out
     private void SetLevelWaveUI(int level, int wave)
     {
-        // Waves & Levels
+        // Waves & Levels           
         if (currentWave > 0)
         {
             currentLevel = 1;
@@ -334,7 +384,8 @@ public class GameManager : MonoBehaviour
         }
 
         levelTextUI.text = "Level: " + currentLevel.ToString();
-        waveTextUI.text = "Wave: " + (wave - ((currentLevel - 1) * 4)).ToString();
+        //waveTextUI.text = "Wave: " + (wave - ((currentLevel - 1) * 4)).ToString();
+        waveTextUI.text = "Wave: " + wave;
 
         switch (currentLevel)
         {
@@ -358,7 +409,8 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        pauseLevelTextUI.text = pauseLevelTextUI.text + " - Wave " + (wave - ((currentLevel - 1) * 4)).ToString();
+        //pauseLevelTextUI.text = pauseLevelTextUI.text + " - Wave " + wave - ((currentLevel - 1) * 4)).ToString();
+        pauseLevelTextUI.text = pauseLevelTextUI.text + " - Wave " + wave;
     }
 
     private void SetSpellUI()
