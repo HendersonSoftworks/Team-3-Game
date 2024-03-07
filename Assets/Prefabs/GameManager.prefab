@@ -51,6 +51,7 @@ MonoBehaviour:
   roundCount: 0
   player: {fileID: 5316335917784017321, guid: 49ff38df4f649d74db0e1f7a3af5d228, type: 3}
   hitPoints: 100
+  Money: 0
   defaultSpellMM: {fileID: 988116943177291913, guid: 31deb83c89ebfab468759f8733c0b96e,
     type: 3}
   equippedSpells:
@@ -70,7 +71,7 @@ MonoBehaviour:
   - {fileID: 4164157842141035894, guid: 0d19be2b8856f2943bc988f14f7c92a0, type: 3}
   - {fileID: 499311442267119274, guid: d0f2af4fcb781654b95f2ab344b6fc2c, type: 3}
   - {fileID: 3852933949624403967, guid: 84b6e45c0bbe3fe46ad70f57bb59c9c8, type: 3}
-  - {fileID: 8961581446400419396, guid: 1ed989e870a849c409e2c6c10d61032a, type: 3}
+  - {fileID: 4164157842141035894, guid: 0d19be2b8856f2943bc988f14f7c92a0, type: 3}
   - {fileID: 3287569808875111007, guid: 770ff9392e8bb30408f41ddce8a02070, type: 3}
   bossPrefabs:
   - {fileID: 7412459769220631959, guid: 97395ebb4337b7045ac68ec8e7ef31ef, type: 3}
@@ -338,7 +339,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ca0dd886523063a43b98d6abbc2b23f0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.231
   m_Pitch: 1
   Loop: 1
   Mute: 0

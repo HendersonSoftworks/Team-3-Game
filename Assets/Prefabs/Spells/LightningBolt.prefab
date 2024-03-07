@@ -59,7 +59,7 @@ MonoBehaviour:
   damage: 20
   timer: 1
   speed: 0
-  range: 10
+  range: 6
 --- !u!212 &1692534040655407956
 SpriteRenderer:
   m_ObjectHideFlags: 0

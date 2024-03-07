@@ -5,21 +5,20 @@ using System;
 
 public class Enemy : MonoBehaviour
 {
-
     public GameObject Player;
+    public GameManager gameManager;
 
     public float movementSpeed;
-    //public int health; no longer needed
-
+    
     // Start is called before the first frame update
     void Start()
     {
-        Player = this.GetComponent<enemyHealth>().health.gameManager.player;
+        gameManager = FindObjectOfType<GameManager>();
+        Player = gameManager.player;
 
         movementSpeed = 0.8F;
         this.GetComponent<enemyHealth>().health = 100;
         this.GetComponent<enemyHealth>().Damage = 10;
-        health = 100;
     }
 
     // Update is called once per frame
