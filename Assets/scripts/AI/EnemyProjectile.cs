@@ -18,7 +18,7 @@ public class EnemyProjectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("Player"); 
+        Player = GameObject.FindWithTag("Player");
 
         seconds = 25f;
         movementSpeed = 0.8f;

@@ -32,25 +32,29 @@ public class wizardBoss : MonoBehaviour
     private float ChaseX;
     private float ChaseY;
 
-    private float testTimer = 0;
+    private float testTimer;
+
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        Player = GameObject.Find("Player");
+        Player = GameObject.FindWithTag("Player");
 
         health = 1000;
         movementSpeed = 0.8f;
 
         bossRing = false;
+
+        this.GetComponent<enemyHealth>().health = 1000;
     }
 
     // Update is called once per frame
     void Update()
     {
-    
-    
+    testTimer += Time.deltaTime;
+
+
     float xDiff = (Player.transform.position.x - transform.position.x);
     float yDiff = (Player.transform.position.y - transform.position.y);
 
@@ -59,38 +63,24 @@ public class wizardBoss : MonoBehaviour
         +
         (yDiff * yDiff)
         );
-
-
-        testTimer += Time.deltaTime;
-        if (testTimer > 5f)
+        //------------------------------testing to be removed
+        if (testTimer>5)
         {
-            health = 700;
+            this.GetComponent<enemyHealth>().health = 300;
         }
-        /*
-        if ( testTimer > 10f)
-        {
-            health = 150;
-        }
-        */
+        //---------------------------------------------------
      
-
-     
-    if (health > 750) 
+    if (this.GetComponent<enemyHealth>().health > 750) 
     {
         PhaseOne(xDiff, yDiff, distance);
     }
-    else if(health > 400)
+    else if(this.GetComponent<enemyHealth>().health > 400)
     {
         PhaseTwo(xDiff, yDiff, distance);
     }
-    else if (health > 0)
+    else if(this.GetComponent<enemyHealth>().health > 0)
     {
         PhaseThree(xDiff, yDiff, distance);
-    }
-
-    if (health <= 0)
-    {
-        Destroy(gameObject);
     }
 
 }

@@ -19,7 +19,9 @@ public class Enemy : MonoBehaviour
 
         Player = gameManager.player;
 
+
         movementSpeed = 0.8F;
+        this.GetComponent<enemyHealth>().health = 100;
         health = 100;
     }
 
