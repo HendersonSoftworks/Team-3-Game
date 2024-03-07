@@ -1769,6 +1769,34 @@ PrefabInstance:
       propertyPath: spellSelectionPanel
       value: 
       objectReference: {fileID: 1380148699}
+    - target: {fileID: 6928202404470569815, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: allSpells.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a7b2d14931894717bdc6e6695663fd8,
+        type: 2}
+    - target: {fileID: 6928202404470569815, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: allSpells.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b4a87a09a2624214a8be2966c8f7db5,
+        type: 2}
+    - target: {fileID: 6928202404470569815, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: allSpells.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9c62e2b7c4add47489fd581f3f48fa67,
+        type: 2}
+    - target: {fileID: 6928202404470569815, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: allSpells.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6928202404470569815, guid: 14709be27f7cc87459b6d715b0453373,
+        type: 3}
+      propertyPath: allSpells.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7293303937404354192, guid: 14709be27f7cc87459b6d715b0453373,
         type: 3}
       propertyPath: m_Name

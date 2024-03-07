@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public int roundCount;
     public GameObject player;
     public int hitPoints;
+    public GameObject defaultSpellMM;
     public GameObject[] equippedSpells;
     public float[] spellsTimersReset; // timer depends on the spell
 
@@ -74,8 +75,9 @@ public class GameManager : MonoBehaviour
     public String[] gameDifficultyTexts = new string[] { "Easy", "Normal", "Hard" };
     public Text pauseGameDifficultyTextUI;
 
-
-    PlaySounds playSounds;
+    private PlaySounds playSounds;
+     
+    public SpellShop spellShop; // set in spellshop start func
 
     public enum WavesTypes
     {
@@ -93,7 +95,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player.SetActive(false);
+        spellShop = FindObjectOfType<SpellShop>();
 
+        ResetSpells();
+        equippedSpells[0] = defaultSpellMM;
     }
 
     void Update()
@@ -281,6 +286,7 @@ public class GameManager : MonoBehaviour
 
         // Set UI
         SetLevelWaveUI(currentLevel, currentWave);
+
     }
 
     private void SpawnMinions(int randAmountMin, int randAmountMax, GameObject minion)
@@ -402,14 +408,45 @@ public class GameManager : MonoBehaviour
         hudPanel.SetActive(true);
         spellListPanel.SetActive(true);
 
-        Time.timeScale = 1;
+        // Update equipped spells to match spellshop inventory
+        print(spellShop.playerInventory);
+        print(equippedSpells);
 
+        // Update spells from SpellShop inventory
+        ResetSpells();
+
+        Time.timeScale = 1;
         InitialiseWave();
+    }
+
+    private void ResetSpells()
+    {
+        if (currentLevel < 1)
+        {
+            return;
+        }
+
+        // Remove all spell prefabs
+        for (int i = 0; i < equippedSpells.Length; i++)
+        {
+            equippedSpells[i] = null;
+        }
+
+        if (player.activeInHierarchy)
+        {
+            // Add spell prefabs back from inventory
+            for (int i = 0; i < spellShop.playerInventory.Count; i++)
+            {
+                equippedSpells[i] = spellShop.playerInventory[i].spellPrefab;
+            }
+        }
+
+        spellShop.Shuffle(spellShop.allSpells);
     }
 
     public void UpdateSpellTimers()
     {
-
+        // Don't think we'll have time to add this
     }
 
     public void ManageEnemyDestruction()

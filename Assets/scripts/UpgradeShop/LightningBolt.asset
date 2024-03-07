@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52626652ec12942b3be94f20bb264391, type: 3}
-  m_Name: FireBall
+  m_Name: LightningBolt
   m_EditorClassIdentifier: 
-  spellName: Fire Ball
-  description: Launches a ball of flame that explodes on impact.
-  cost: 1000
-  icon: {fileID: 21300000, guid: 8d27ec81fae9f4f49869c8bfd94158c4, type: 3}
-  spellPrefab: {fileID: 988116943177291913, guid: cf6dcc4b74018794db9b74b13acc1f65,
+  spellName: Lightning Bolt
+  description: Fires bolts of lightning at foes
+  cost: 600
+  icon: {fileID: 21300000, guid: 296571d12ec3261468d86edd5f934124, type: 3}
+  spellPrefab: {fileID: 1692534040655407959, guid: 1eed1f8c21b7ed448bb3bd4677702468,
     type: 3}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1692534040655407957}
   - component: {fileID: 117511174}
   m_Layer: 9
-  m_Name: RayOfFrost
+  m_Name: DragonBreath
   m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
   canRecast: 0
   castClip: {fileID: 8300000, guid: c539a1aebf10da140935c894c052e86c, type: 3}
   impactClip: {fileID: 0}
-  damage: 15
+  damage: 10
   timer: 1
   speed: 0
   range: 10
@@ -100,7 +100,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cddb67e83968ecd43a21b29c5e8f64d5, type: 3}
-  m_Color: {r: 0.10849059, g: 1, b: 0.8559377, a: 1}
+  m_Color: {r: 1, g: 0.29309157, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2

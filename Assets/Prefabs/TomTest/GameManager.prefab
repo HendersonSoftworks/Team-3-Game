@@ -51,10 +51,12 @@ MonoBehaviour:
   roundCount: 0
   player: {fileID: 5316335917784017321, guid: 49ff38df4f649d74db0e1f7a3af5d228, type: 3}
   hitPoints: 100
+  defaultSpellMM: {fileID: 988116943177291913, guid: 31deb83c89ebfab468759f8733c0b96e,
+    type: 3}
   equippedSpells:
   - {fileID: 988116943177291913, guid: 31deb83c89ebfab468759f8733c0b96e, type: 3}
-  - {fileID: 1692534040655407959, guid: f2c2b72fa0bc3e9468862dab71a1a518, type: 3}
-  - {fileID: 988116943177291913, guid: cf6dcc4b74018794db9b74b13acc1f65, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   spellsTimersReset:
@@ -79,23 +81,32 @@ MonoBehaviour:
   levelTextUI: {fileID: 0}
   waveTextUI: {fileID: 0}
   shopPanelUI: {fileID: 0}
+  hudPanel: {fileID: 0}
+  spellListPanel: {fileID: 0}
   levels: {fileID: 0}
   hauntedForest: {fileID: 0}
   castleCourtyard: {fileID: 0}
   insideCastle: {fileID: 0}
-  startScreenClip: {fileID: 8300000, guid: ca0dd886523063a43b98d6abbc2b23f0, type: 3}
-  hauntedForestClip: {fileID: 8300000, guid: eadb9f7c0f88c874ab298628bb4672d8, type: 3}
-  castleCourtyardClip: {fileID: 8300000, guid: 6ce0ba5419def2345b5774107102c94b, type: 3}
-  insideCastleClip: {fileID: 8300000, guid: e068cbc190378664aaffb06a7198a5ee, type: 3}
+  startScreenClip: {fileID: 8300000, guid: 50404ca210fa53349a3c9b1876526273, type: 3}
+  hauntedForestClip: {fileID: 8300000, guid: 91f9bc77343743b4eaa5010e3600e092, type: 3}
+  castleCourtyardClip: {fileID: 8300000, guid: 91f9bc77343743b4eaa5010e3600e092, type: 3}
+  insideCastleClip: {fileID: 8300000, guid: 91f9bc77343743b4eaa5010e3600e092, type: 3}
   isGamePaused: 0
   isGameStarted: 0
+  shouldPauseWhenLostFocus: 1
   optionsScreen: {fileID: 0}
   pauseScreen: {fileID: 0}
   firstSelectionPause: {fileID: 0}
-  pauseLevelTextUI: {fileID: 0}
-  gameDifficulty: Easy
-  pauseGameDifficultyTextUI: {fileID: 0}
   gameOverScreen: {fileID: 0}
+  pauseLevelTextUI: {fileID: 0}
+  pauseHealthTextUI: {fileID: 0}
+  gameDifficulty: 0
+  gameDifficultyTexts:
+  - Easy
+  - Normal
+  - Hard
+  pauseGameDifficultyTextUI: {fileID: 0}
+  spellShop: {fileID: 0}
 --- !u!114 &8363320587771105339
 MonoBehaviour:
   m_ObjectHideFlags: 0
