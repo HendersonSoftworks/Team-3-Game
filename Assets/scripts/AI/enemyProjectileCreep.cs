@@ -22,7 +22,7 @@ public class enemyProjectileCreep : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("Player");
+        Player = GameObject.FindWithTag("Player");
 
         Shooting = false;
         Fleeing = false;
@@ -31,7 +31,8 @@ public class enemyProjectileCreep : MonoBehaviour
 
         //movement speed is lower for ranged attack mobs
         movementSpeed = 0.6F;
-        health = 100;
+        health = 60;
+        this.GetComponent<enemyHealth>().health = 60;
 
     }
 

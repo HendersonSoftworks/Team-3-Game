@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 2188062266235571600}
   - component: {fileID: 2643642379315319249}
   - component: {fileID: -5571223590712395646}
+  - component: {fileID: -2860036041026687680}
   m_Layer: 0
   m_Name: spider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,4 +97,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0
+  health: 0
+--- !u!114 &-2860036041026687680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4164157842141035894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 843a19d0edc5b5048b53923d932c683f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   health: 0
