@@ -7,7 +7,6 @@ public class Enemy : MonoBehaviour
 {
 
     public GameObject Player;
-    public GameManager gameManager;
 
     public float movementSpeed;
     public int health;
@@ -15,13 +14,11 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-
-        Player = gameManager.player;
-
+        Player = this.GetComponent<enemyHealth>().health.gameManager.player;
 
         movementSpeed = 0.8F;
         this.GetComponent<enemyHealth>().health = 100;
+        this.GetComponent<enemyHealth>().Damage = 10;
         health = 100;
     }
 

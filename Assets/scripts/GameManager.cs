@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public int roundCount;
     public GameObject player;
     public int hitPoints;
+    public int Money; // player currency
     public GameObject defaultSpellMM;
     public GameObject[] equippedSpells;
     public float[] spellsTimersReset; // timer depends on the spell
