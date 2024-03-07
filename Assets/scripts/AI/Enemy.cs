@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public GameManager gameManager;
 
     public float movementSpeed;
-    public int health;
+    //public int health; no longer needed
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
 
         movementSpeed = 0.8F;
         this.GetComponent<enemyHealth>().health = 100;
-        health = 100;
+        //health = 100;
     }
 
     // Update is called once per frame
