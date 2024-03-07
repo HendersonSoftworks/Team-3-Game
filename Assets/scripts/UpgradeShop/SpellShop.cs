@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class SpellShop : MonoBehaviour
 {
-    //public Canvas canvas;
-
     public Text[] spellNameTexts; // Array of Text components for displaying spell names
     public Text[] spellDescriptionTexts; // Array of Text components for displaying spell descriptions
     public Text[] spellCostTexts; // Array of Text components for displaying spell costs
@@ -17,7 +15,7 @@ public class SpellShop : MonoBehaviour
     public SpellData[] allSpells; // Array of all available spells
     public int maxInventorySize = 5; // Prefab for the inventory slot UI
 
-    private List<SpellData> playerInventory = new List<SpellData>(); // Player's inventory data structure
+    public List<SpellData> playerInventory = new List<SpellData>(); // Player's inventory data structure
     public Text[] inventorySpellName; // Text components for displaying spell names
     public Image[] inventorySpellIcon; // Image components for displaying spell icons
     public Button[] deleteButtons; // Array of delete buttons for each spell in the inventory
@@ -44,11 +42,27 @@ public class SpellShop : MonoBehaviour
 
     private int currentSpellIndex = 0; // Index of the currently selected spell
 
+    private GameManager gameManager;
+
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
+        gameManager.spellShop = gameObject.GetComponent<SpellShop>();
+
         Shuffle(allSpells); // Shuffle the spells once at the start
         UpdateSpellDisplay();
         UpdateCurrencyUI();
+
+        // Add MM to invetory
+        for (int i = 0; i < allSpells.Length; i++)
+        {
+            print(allSpells[i].spellName);
+            if (allSpells[i].spellName == "Magic Missile")
+            {
+                playerInventory.Add(allSpells[i]);
+            }
+        }
+
         UpdateInventoryUI();
         spellPopupWindow.SetActive(false); // Deactivate the pop-up window initially
 
@@ -384,7 +398,7 @@ public class SpellShop : MonoBehaviour
     }
 
     // Fisher-Yates shuffle algorithm to shuffle an array
-    void Shuffle<T>(T[] array)
+    public void Shuffle<T>(T[] array)
     {
         for (int i = array.Length - 1; i > 0; i--)
         {

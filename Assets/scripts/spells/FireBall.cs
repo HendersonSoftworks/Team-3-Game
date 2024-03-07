@@ -21,8 +21,8 @@ public class FireBall : Spell
         // Get target
         GetClosestTarget(gameManager, gameManager.player);
 
-        // Prevent duplicates
-        PreventFireBallCasting();
+        // Prevent duplicates, but causes a bug with new shop code
+        //PreventFireBallCasting();
     }
 
     void Update()

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52626652ec12942b3be94f20bb264391, type: 3}
   m_Name: RayofFrost
   m_EditorClassIdentifier: 
-  spellName: Salt Spell
-  description: This is the salt spell
+  spellName: Ray of Frost
+  description: Fires a chilling ray
   cost: 600
   icon: {fileID: 21300000, guid: 296571d12ec3261468d86edd5f934124, type: 3}
   spellPrefab: {fileID: 1692534040655407959, guid: f2c2b72fa0bc3e9468862dab71a1a518,

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52626652ec12942b3be94f20bb264391, type: 3}
-  m_Name: FireBall
+  m_Name: PsychicBomb
   m_EditorClassIdentifier: 
   spellName: Fire Ball
-  description: Launches a ball of flame that explodes on impact.
-  cost: 1000
+  description: Launches a ball of energy that explodes on impact.
+  cost: 500
   icon: {fileID: 21300000, guid: 8d27ec81fae9f4f49869c8bfd94158c4, type: 3}
-  spellPrefab: {fileID: 988116943177291913, guid: cf6dcc4b74018794db9b74b13acc1f65,
+  spellPrefab: {fileID: 988116943177291913, guid: b0b905a41705bd945a61f19bef384942,
     type: 3}

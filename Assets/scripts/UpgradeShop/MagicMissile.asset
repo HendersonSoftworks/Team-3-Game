@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52626652ec12942b3be94f20bb264391, type: 3}
   m_Name: MagicMissile
   m_EditorClassIdentifier: 
-  spellName: Sugar Spell
-  description: This is the Sugar Spell
+  spellName: Magic Missile
+  description: Fires bolts of psychic energy
   cost: 500
   icon: {fileID: 21300000, guid: 7ff2b477832c2d74790dae2320dc5c72, type: 3}
   spellPrefab: {fileID: 988116943177291913, guid: 31deb83c89ebfab468759f8733c0b96e,
