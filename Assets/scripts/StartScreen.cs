@@ -35,7 +35,7 @@ public class StartScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BackToStart();
+        BackToStart(true);
     }
 
     // Deactivate levels
@@ -58,14 +58,17 @@ public class StartScreen : MonoBehaviour
         optionsScreen.SetActive(false);
         creditsScreen.SetActive(false);
         confirmationModal.SetActive(false);
-
-        playSounds = GetComponent<PlaySounds>();
-        playSounds.PlayMusic(startScreenClip);
     }
 
     // Back to start menu
-    public void BackToStart()
+    public void BackToStart(bool play)
     {
+        if (play)
+        {
+            playSounds = this.GetComponent<PlaySounds>();
+            playSounds.PlayMusic(startScreenClip);
+        }
+
         DeactivateLevels();
         ActivateStartScreen();
         EventSystem.current.SetSelectedGameObject(firstSelection);
