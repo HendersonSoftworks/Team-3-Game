@@ -19,6 +19,9 @@ public class StartScreen : MonoBehaviour
     public GameObject pauseScreen;
     public GameObject optionsScreen;
     public GameObject creditsScreen;
+    public GameObject gameOverScreen;
+    public GameObject confirmationModal;
+    public Button yesConfirmationButton;
 
     // First selection on different screens
     public GameObject firstSelection;
@@ -29,14 +32,14 @@ public class StartScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DeactivateLevels();
-        ActivateStartScreen();
+        BackToStart();
     }
 
     // Deactivate levels
     private void DeactivateLevels()
     {
         gameLevels.SetActive(false);
+        gameOverScreen.SetActive(false);
         hauntedForest.SetActive(false);
         castleCourtyard.SetActive(false);
         insideCastle.SetActive(false);
@@ -51,11 +54,13 @@ public class StartScreen : MonoBehaviour
         pauseScreen.SetActive(false);
         optionsScreen.SetActive(false);
         creditsScreen.SetActive(false);
+        confirmationModal.SetActive(false);
     }
 
     // Back to start menu
     public void BackToStart()
     {
+        DeactivateLevels();
         ActivateStartScreen();
         EventSystem.current.SetSelectedGameObject(firstSelection);
     }
@@ -64,9 +69,6 @@ public class StartScreen : MonoBehaviour
     public void StartGame()
     {
         startScreen.SetActive(false);
-
-        gameLevels.SetActive(true);
-        hauntedForest.SetActive(true);
 
         // Start game
         gameManager.GetComponent<GameManager>().StartGame();
@@ -93,8 +95,15 @@ public class StartScreen : MonoBehaviour
     public void OpenCredits()
     {
         startScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
         creditsScreen.SetActive(true);
         EventSystem.current.SetSelectedGameObject(firstSelectionCredits);
+    }
+
+    public void ConfirmExitGame()
+    {
+        yesConfirmationButton.onClick.AddListener(() => { ExitGame(); });
+        confirmationModal.SetActive(true);
     }
 
     // Open options screen
