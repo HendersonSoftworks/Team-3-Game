@@ -8,6 +8,7 @@ public class WerewolfBoss : MonoBehaviour
 {
 
     private GameObject Player;
+    public GameManager gameManager;
 
     public GameObject Summon;
 
@@ -27,7 +28,10 @@ public class WerewolfBoss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.FindWithTag("Player");
+        gameManager = FindObjectOfType<GameManager>();
+        Player = gameManager.player;
+        this.GetComponent<enemyHealth>().health = 250;
+        this.GetComponent<enemyHealth>().Damage = 15;
 
         Chasing = false;
         ChaseX = 0f;
@@ -36,8 +40,6 @@ public class WerewolfBoss : MonoBehaviour
         coolDownTimer = 0f;
 
         movementSpeed = 0.9F;
-        health = 250;
-        this.GetComponent<enemyHealth>().health = 250;
     }
 
     // Update is called once per frame

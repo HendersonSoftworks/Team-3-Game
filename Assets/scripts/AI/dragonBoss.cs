@@ -7,6 +7,7 @@ using System.Timers;
 public class dragonBoss : MonoBehaviour
 {
     private GameObject Player;
+    public GameManager gameManager;
 
     public GameObject enemyProjectile;
 
@@ -31,10 +32,10 @@ public class dragonBoss : MonoBehaviour
     void Start()
     {
 
-        Player = GameObject.FindWithTag("Player");
-
-        health = 700;
+        gameManager = FindObjectOfType<GameManager>();
+        Player = gameManager.player;
         this.GetComponent<enemyHealth>().health = 700;
+        this.GetComponent<enemyHealth>().Damage = 20;
         movementSpeed = 0.8f;
 
         changePos = true;
