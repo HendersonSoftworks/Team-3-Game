@@ -7,6 +7,7 @@ using System.Timers;
 public class wizardBoss : MonoBehaviour
 {
     private GameObject Player;
+    public GameManager gameManager;
 
     public GameObject Summon;
     public GameObject enemyProjectile;
@@ -39,14 +40,15 @@ public class wizardBoss : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        Player = GameObject.FindWithTag("Player");
+        gameManager = FindObjectOfType<GameManager>();
+        Player = gameManager.player;
+        this.GetComponent<enemyHealth>().health = 1000;
+        this.GetComponent<enemyHealth>().Damage = 25;
 
         health = 1000;
         movementSpeed = 0.8f;
 
         bossRing = false;
-
-        this.GetComponent<enemyHealth>().health = 1000;
     }
 
     // Update is called once per frame

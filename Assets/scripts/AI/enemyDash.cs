@@ -8,6 +8,7 @@ public class enemyDash : MonoBehaviour
 {
 
     private GameObject Player;
+    public GameManager gameManager;
 
     public float chargePause;
     public float chargeTime;
@@ -25,7 +26,10 @@ public class enemyDash : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.FindWithTag("Player");
+        gameManager = FindObjectOfType<GameManager>();
+        Player = gameManager.player;
+        this.GetComponent<enemyHealth>().health = 120;
+        this.GetComponent<enemyHealth>().Damage = 12;
 
         Charging = false;
         ChaseX = 0f;
@@ -34,8 +38,6 @@ public class enemyDash : MonoBehaviour
         coolDownTimer = 0f;
 
         movementSpeed = 0.8F;
-        health = 120;
-        this.GetComponent<enemyHealth>().health = 120;
     }
 
     // Update is called once per frame
