@@ -28,6 +28,9 @@ public class StartScreen : MonoBehaviour
     public GameObject firstSelectionOptions;
     public GameObject firstSelectionCredits;
 
+    // Audio
+    PlaySounds playSounds;
+    public AudioClip startScreenClip;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +58,9 @@ public class StartScreen : MonoBehaviour
         optionsScreen.SetActive(false);
         creditsScreen.SetActive(false);
         confirmationModal.SetActive(false);
+
+        playSounds = GetComponent<PlaySounds>();
+        playSounds.PlayMusic(startScreenClip);
     }
 
     // Back to start menu
