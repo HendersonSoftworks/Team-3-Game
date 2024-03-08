@@ -45,7 +45,7 @@ public class Spell : MonoBehaviour
     public AudioClip impactClip;
 
     // Private properties
-    private float targetDist;
+    public float targetDist;
 
     public virtual void SetupSpell(float damage, float speed, 
         EffectTypes effect0, EffectTypes effect1, EffectTypes effect2,

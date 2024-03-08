@@ -169,10 +169,9 @@ public class GameManager : MonoBehaviour
 
         UpdateEnemyList();
 
-        SetSpellUI();
-
         SetLevelWaveUI(currentLevel, currentWave);
 
+        SetSpellUI();
 
         playSounds = GetComponent<PlaySounds>();
         playSounds.PlayMusic(hauntedForestClip);

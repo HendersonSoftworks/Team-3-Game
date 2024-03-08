@@ -59,7 +59,7 @@ MonoBehaviour:
   impactClip: {fileID: 8300000, guid: e6add367da2f36e4cae11e93f5c6411c, type: 3}
   damage: 35
   speed: 10
-  range: 20
+  range: 5
   timer: 1
 --- !u!212 &988116943177291916
 SpriteRenderer:

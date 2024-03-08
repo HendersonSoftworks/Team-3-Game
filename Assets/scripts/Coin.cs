@@ -11,12 +11,12 @@ public class Coin : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Player earns currency");
-            gameManager.Money += 10;
+            //Debug.Log("Player earns currency");
+            gameManager.Money += 25;
             Destroy(gameObject);
         }
     }

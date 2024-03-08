@@ -18,7 +18,7 @@ public class enemyHealth : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("Player loses health");
-            gameManager.hitPoints -= Damage;
+            gameManager.hitPoints -= (int)Damage;
         }
     }
 }

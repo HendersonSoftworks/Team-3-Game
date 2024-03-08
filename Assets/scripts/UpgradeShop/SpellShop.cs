@@ -20,7 +20,7 @@ public class SpellShop : MonoBehaviour
     public Image[] inventorySpellIcon; // Image components for displaying spell icons
     public Button[] deleteButtons; // Array of delete buttons for each spell in the inventory
 
-    public int playerCurrency = 1000;
+    public int playerCurrency;
     public Text currencyText;
 
     public GameObject spellPopupWindow; // Reference to the pop-up window GameObject
@@ -56,7 +56,7 @@ public class SpellShop : MonoBehaviour
         // Add MM to invetory
         for (int i = 0; i < allSpells.Length; i++)
         {
-            print(allSpells[i].spellName);
+            //print(allSpells[i].spellName);
             if (allSpells[i].spellName == "Magic Missile")
             {
                 playerInventory.Add(allSpells[i]);
@@ -85,6 +85,8 @@ public class SpellShop : MonoBehaviour
             HandleKeyboardInput();
             HandleMouseInput();
         }
+
+        UpdateMoney();
     }
 
     //void DeleteSpellFromInventory(int index)
@@ -99,6 +101,12 @@ public class SpellShop : MonoBehaviour
     //    }
     //}
 
+    private void UpdateMoney()
+    {
+        playerCurrency = gameManager.Money;
+        currencyText.text = playerCurrency.ToString();
+    }
+
     public void DeleteSpellFromInventory(int index)
     {
         // Check if the index is valid
@@ -108,7 +116,7 @@ public class SpellShop : MonoBehaviour
             int spellCost = playerInventory[index].cost;
 
             // Add the cost of the spell back to the player's currency
-            playerCurrency += spellCost;
+            gameManager.Money += spellCost;
 
             // Remove the spell from the inventory
             playerInventory.RemoveAt(index);
@@ -116,6 +124,7 @@ public class SpellShop : MonoBehaviour
             // Update the UI
             UpdateCurrencyUI();
             UpdateInventoryUI();
+            UpdateMoney();
 
             // Check if the inventory is no longer full
             if (playerInventory.Count < maxInventorySize)
@@ -262,6 +271,7 @@ public class SpellShop : MonoBehaviour
             confirmPurchaseButton.GetComponentInChildren<Text>().text = "Back to Shop";
             confirmPurchaseButton.onClick.RemoveAllListeners();
             confirmPurchaseButton.onClick.AddListener(BackToShop);
+            confirmPurchaseButton.gameObject.SetActive(false);
 
             spellPopupNameText.gameObject.SetActive(false);
             spellPopupDescriptionText.gameObject.SetActive(false);
@@ -281,6 +291,7 @@ public class SpellShop : MonoBehaviour
             confirmPurchaseButton.GetComponentInChildren<Text>().text = "Back to Shop";
             confirmPurchaseButton.onClick.RemoveAllListeners();
             confirmPurchaseButton.onClick.AddListener(BackToShop);
+            confirmPurchaseButton.gameObject.SetActive(false);
 
             spellPopupNameText.gameObject.SetActive(false);
             spellPopupDescriptionText.gameObject.SetActive(false);
@@ -301,6 +312,7 @@ public class SpellShop : MonoBehaviour
             inventoryFullDes.gameObject.SetActive(false);
 
             // Change the purchase button to a button that brings the user back to the shop
+            confirmPurchaseButton.gameObject.SetActive(true);
             confirmPurchaseButton.GetComponentInChildren<Text>().text = "Purchase";
             confirmPurchaseButton.onClick.RemoveAllListeners();
             confirmPurchaseButton.onClick.AddListener(ConfirmPurchase);
@@ -368,7 +380,7 @@ public class SpellShop : MonoBehaviour
         }
 
         // Deduct the cost of the spell from the player's currency
-        playerCurrency -= selectedSpell.cost;
+        gameManager.Money -= selectedSpell.cost;
 
         // Add the spell to the player's inventory
         playerInventory.Add(selectedSpell);
@@ -385,6 +397,7 @@ public class SpellShop : MonoBehaviour
 
         // Update the inventory UI
         UpdateInventoryUI();
+        UpdateMoney();
     }
 
     void BackToShop()

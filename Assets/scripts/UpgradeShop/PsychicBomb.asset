@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52626652ec12942b3be94f20bb264391, type: 3}
   m_Name: PsychicBomb
   m_EditorClassIdentifier: 
-  spellName: Fire Ball
+  spellName: Psychic Bomb
   description: Launches a ball of energy that explodes on impact.
   cost: 500
   icon: {fileID: 21300000, guid: 8d27ec81fae9f4f49869c8bfd94158c4, type: 3}

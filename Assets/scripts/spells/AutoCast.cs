@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AutoCast : MonoBehaviour
 {
+    public bool isCasting = false;
+
     [SerializeField]
     private float timer; // these need to converted to arrays 
     [SerializeField]
@@ -30,6 +32,19 @@ public class AutoCast : MonoBehaviour
 
     void Update()
     {
+        for (int i = 0; i < gameManager.equippedSpells.Length; i++)
+        {
+            var spellComp = gameManager.equippedSpells[i].GetComponent<Spell>();
+            if (spellComp.targetDist < spellComp.Range)
+            {
+                isCasting = true;
+            }
+            else
+            {
+                isCasting = false;
+            }
+        }
+
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
@@ -48,6 +63,8 @@ public class AutoCast : MonoBehaviour
                 PlayCastSound(spells[i].GetComponent<Spell>().castClip); 
             }
         }
+
+        isCasting = true;
     }
 
     private void PlayCastSound(AudioClip clip)
