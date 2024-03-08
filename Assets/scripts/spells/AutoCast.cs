@@ -58,4 +58,20 @@ public class AutoCast : MonoBehaviour
     {
         audioSource.PlayOneShot(clip);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if ((collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Projectile") && !gameManager.isInvincible)
+        {
+            gameManager.DamagePlayer();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if ((collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Projectile") && !gameManager.isInvincible)
+        {
+            gameManager.DamagePlayer();
+        }
+    }
 }

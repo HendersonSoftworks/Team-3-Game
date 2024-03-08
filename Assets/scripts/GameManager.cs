@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject defaultSpellMM;
     public GameObject[] equippedSpells;
     public float[] spellsTimersReset; // timer depends on the spell
+    public bool isInvincible = false;
 
     [Header("Enemy Settings")]
     public GameObject[] enemies;
@@ -538,5 +539,27 @@ public class GameManager : MonoBehaviour
                 PauseGame();
             }
         }
+    }
+
+    public void DamagePlayer()
+    {
+        hitPoints -= 10;
+        
+        Color damageCol = new Color(1, 1, 1, 0.5f);
+        player.GetComponent<SpriteRenderer>().color = damageCol;
+
+        isInvincible = true;
+
+        StartCoroutine(RestorePlayerAlpha(2));
+    }
+
+    public IEnumerator RestorePlayerAlpha(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        Color originalCol = new Color(1, 1, 1, 1);
+        player.GetComponent<SpriteRenderer>().color = originalCol;
+
+        isInvincible = false;
     }
 }
