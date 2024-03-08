@@ -32,19 +32,6 @@ public class AutoCast : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i < gameManager.equippedSpells.Length; i++)
-        {
-            var spellComp = gameManager.equippedSpells[i].GetComponent<Spell>();
-            if (spellComp.targetDist < spellComp.Range)
-            {
-                isCasting = true;
-            }
-            else
-            {
-                isCasting = false;
-            }
-        }
-
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
