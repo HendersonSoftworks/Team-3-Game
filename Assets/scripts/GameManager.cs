@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] equippedSpells;
     public float[] spellsTimersReset; // timer depends on the spell
     public bool isInvincible = false;
+    public bool isDead = false;
 
     [Header("Enemy Settings")]
     public GameObject[] enemies;
@@ -135,10 +136,26 @@ public class GameManager : MonoBehaviour
 
         ManageEnemyDestruction();
 
+        ManagePlayerDeathState();
+
         // If ESC is hit, pauses game and open pause menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
+        }
+    }
+
+    private void ManagePlayerDeathState()
+    {
+        if (hitPoints <= 0)
+        {
+            isDead = true;
+            player.SetActive(false);
+        }
+        else
+        {
+            isDead = false;
+            player.SetActive(true);
         }
     }
 
