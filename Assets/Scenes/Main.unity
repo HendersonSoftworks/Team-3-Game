@@ -2564,6 +2564,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dca1a8001ea331a4483f1ab785403feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1909494057 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8826556331121730477, guid: 41341d69bd835384cb4bd3b756628fed,
+    type: 3}
+  m_PrefabInstance: {fileID: 7810527435016747723}
+  m_PrefabAsset: {fileID: 0}
 --- !u!82 &1909494058 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 7810527433149197281, guid: 41341d69bd835384cb4bd3b756628fed,
@@ -3422,6 +3428,11 @@ PrefabInstance:
       objectReference: {fileID: 203643590}
     - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
         type: 3}
+      propertyPath: playerDied
+      value: 
+      objectReference: {fileID: 8300000, guid: e0b9094b1bb795340a6b0b52fed2ff64, type: 3}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
       propertyPath: waveTextUI
       value: 
       objectReference: {fileID: 1184247285}
@@ -3675,6 +3686,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8363320587771105339, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
+      propertyPath: soundEffect
+      value: 
+      objectReference: {fileID: 1909494057}
     - target: {fileID: 8363320587771105339, guid: 41341d69bd835384cb4bd3b756628fed,
         type: 3}
       propertyPath: volumeSlider

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public float[] spellsTimersReset; // timer depends on the spell
     public bool isInvincible = false;
     public bool isDead = false;
+    public AudioClip playerDied;
 
     [Header("Enemy Settings")]
     public GameObject[] enemies;
@@ -155,6 +156,8 @@ public class GameManager : MonoBehaviour
 
     private void GameIsOver(bool gameWon)
     {
+        player.SetActive(false);
+
         if (gameWon)
         {
             gameOverTitleTextUI.text = "Congratulations!";
@@ -195,13 +198,12 @@ public class GameManager : MonoBehaviour
     {
         if (hitPoints <= 0)
         {
-            isDead = true;
-            player.SetActive(false);
-        }
-        else
-        {
-            isDead = false;
-            player.SetActive(true);
+            isGamePaused = false;
+            isGameStarted = false;
+            isGameOver = true;
+
+            playSounds = GetComponent<PlaySounds>();
+            playSounds.PlayEffect(playerDied);
         }
     }
 

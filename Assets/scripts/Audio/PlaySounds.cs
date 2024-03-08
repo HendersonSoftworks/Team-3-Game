@@ -8,6 +8,7 @@ public class PlaySounds : MonoBehaviour
     public AudioSource soundMove;
     public AudioSource soundSelect;
     public AudioSource soundMusic;
+    public AudioSource soundEffect;
 
     public Slider volumeSlider;
 
@@ -65,6 +66,16 @@ public class PlaySounds : MonoBehaviour
         if (shouldPlayEffects)
         {
             soundSelect.Play();
+        }
+    }
+
+    // Plays an effect
+    public void PlayEffect(AudioClip effect)
+    {
+        if (shouldPlayEffects)
+        {
+            soundEffect.clip = effect;
+            soundEffect.Play();
         }
     }
 
