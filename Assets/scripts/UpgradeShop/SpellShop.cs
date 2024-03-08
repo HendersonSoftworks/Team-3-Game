@@ -163,7 +163,7 @@ public class SpellShop : MonoBehaviour
 
     void UpdateCurrencyUI()
     {
-        currencyText.text = playerCurrency.ToString();
+        currencyText.text = "$ " + playerCurrency.ToString();
     }
 
     void UpdateInventoryUI()
