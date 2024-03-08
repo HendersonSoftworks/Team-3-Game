@@ -48,7 +48,7 @@ public class SpellShop : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        gameManager.spellShop = gameObject.GetComponent<SpellShop>();
+        //gameManager.spellShop = this.GetComponent<SpellShop>();
 
         Shuffle(allSpells); // Shuffle the spells once at the start
         UpdateSpellDisplay();

@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
         ManageEnemyDestruction();
 
         // If ESC is hit, pauses game and open pause menu
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !isSpellShop)
         {
             PauseGame();
         }
