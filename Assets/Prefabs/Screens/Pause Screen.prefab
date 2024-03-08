@@ -748,7 +748,7 @@ GameObject:
   - component: {fileID: 5521309431222675939}
   - component: {fileID: 5521309431222675940}
   m_Layer: 5
-  m_Name: Energy Amount
+  m_Name: Health Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1515,7 +1515,7 @@ GameObject:
   - component: {fileID: 5521309431995180785}
   - component: {fileID: 5521309431995180786}
   m_Layer: 5
-  m_Name: Energy Left
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1580,7 +1580,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Energy level
+  m_Text: Health
 --- !u!1 &5521309432168684065
 GameObject:
   m_ObjectHideFlags: 0

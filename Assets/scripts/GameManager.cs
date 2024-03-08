@@ -28,13 +28,18 @@ public class GameManager : MonoBehaviour
     // Player
     public Text playerHealthUI;
     public Text[] spellSlotUI;
+    public Text levelTextUI;
+    public Text waveTextUI;
 
     // Level
     [Header("Game Settings")]
     public int currentLevel;
     public int currentWave;
-    public Text levelTextUI;
-    public Text waveTextUI;
+    public int enemiesKilled;
+    public int bossesKilled;
+    public int gameDifficulty = 0;
+    public String[] gameDifficultyTexts = new string[] { "Easy", "Normal", "Hard" };
+
     // UI
     [Header("HUD & Spell Shop")]
     public GameObject shopPanelUI;
@@ -50,15 +55,15 @@ public class GameManager : MonoBehaviour
     // CTRL + M + L to expand all code regions
 
     [Header("Audio Settings")]
-    public AudioClip startScreenClip;
     public AudioClip hauntedForestClip;
     public AudioClip castleCourtyardClip;
     public AudioClip insideCastleClip;
 
-
     [Header("Control flags")]
     public bool isGamePaused = false;
     public bool isGameStarted = false;
+    public bool isGameOver = false;
+    public bool isSpellShop = false;
     public bool shouldPauseWhenLostFocus = true;
 
     [Header("Game Screens")]
@@ -67,18 +72,32 @@ public class GameManager : MonoBehaviour
     public GameObject pauseScreen;
     public GameObject firstSelectionPause;
     public GameObject gameOverScreen;
+    public GameObject confirmationModal;
+    public Button yesConfirmationButton;
 
     [Header("Pause screen stats")]
     public Text pauseLevelTextUI;
     public Text pauseHealthTextUI;
-
-    public int gameDifficulty = 0;
-    public String[] gameDifficultyTexts = new string[] { "Easy", "Normal", "Hard" };
+    public Text pauseDamageTextUI;
+    public Text pausePowersTextUI;
+    public Text pauseCurrencyTextUI;
+    public Text pauseKillsTextUI;
+    public Text pauseBossesTextUI;
     public Text pauseGameDifficultyTextUI;
 
-    private PlaySounds playSounds;
-     
-    public SpellShop spellShop; // set in spellshop start func
+    [Header("Game over screen stats")]
+    public Text gameOverTitleTextUI;
+    public Text gameOverLevelTextUI;
+    public Text gameOverWavesTextUI;
+    public Text gameOverCurrencyWonTextUI;
+    public Text gameOverCurrencySpentTextUI;
+    public Text gameOverKillsTextUI;
+    public Text gameOverBossesTextUI;
+    public Text gameOverDifficultyTextUI;
+
+    PlaySounds playSounds;
+
+    public GameObject spellShop; // set in spellshop start func
 
     public enum WavesTypes
     {
@@ -96,7 +115,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player.SetActive(false);
-        spellShop = FindObjectOfType<SpellShop>();
 
         ResetSpells();
         equippedSpells[0] = defaultSpellMM;
@@ -117,13 +135,41 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // If ESC is hit, goes back to start screen
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (isGameOver)
             {
-                startScreen = GetComponent<StartScreen>();
-                startScreen.BackToStart();
+                GameIsOver(currentWave == 12);
+            }
+            else
+            {
+                // If ESC is hit, goes back to start screen
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    startScreen = GetComponent<StartScreen>();
+                    startScreen.BackToStart(false);
+                }
             }
         }
+    }
+
+    private void GameIsOver(bool gameWon)
+    {
+        if (gameWon)
+        {
+            gameOverTitleTextUI.text = "Congratulations!";
+        }
+        else
+        {
+            gameOverTitleTextUI.text = "Game over";
+        }
+
+        gameOverCurrencyWonTextUI.text = Money.ToString();
+        gameOverCurrencySpentTextUI.text = spellShop.GetComponent<SpellShop>().currencySpent.ToString();
+
+        gameOverKillsTextUI.text = enemiesKilled.ToString();
+        gameOverBossesTextUI.text = bossesKilled.ToString();
+
+        gameOverScreen.SetActive(true);
+        DeactivateGameScreens();
     }
 
     void GameIsPlaying()
@@ -135,7 +181,7 @@ public class GameManager : MonoBehaviour
         ManageEnemyDestruction();
 
         // If ESC is hit, pauses game and open pause menu
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !isSpellShop)
         {
             PauseGame();
         }
@@ -163,6 +209,9 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        levels.SetActive(true);
+        hauntedForest.SetActive(true);
+
         player.SetActive(true);
 
         InitialiseWave();
@@ -184,11 +233,51 @@ public class GameManager : MonoBehaviour
     {
         isGamePaused = true;
 
+        int spellsTotal = 0;
+        float damageTotal = 0;
+        for (int i = 0; i < equippedSpells.Length; i++)
+        {
+            if (equippedSpells[i] != null)
+            {
+                spellsTotal++;
+                switch (equippedSpells[i].name)
+                {
+                    case "CloudBall":
+                        damageTotal += 20;
+                        break;
+                    case "DragonBreath":
+                        damageTotal += 10;
+                        break;
+                    case "EldritchBlast":
+                        damageTotal += 35;
+                        break;
+                    case "FireBall":
+                        damageTotal += 100;
+                        break;
+                    case "LightningBolt":
+                        damageTotal += 20;
+                        break;
+                    case "MagicMissile":
+                        damageTotal += 25;
+                        break;
+                    case "PsychicBomb":
+                        damageTotal += 50;
+                        break;
+                    case "RayOfFrost":
+                        damageTotal += 15;
+                        break;
+                }
+            }
+        }
+
+        pauseDamageTextUI.text = damageTotal.ToString();
+        pausePowersTextUI.text = spellsTotal.ToString();
+        pauseKillsTextUI.text = enemiesKilled.ToString();
+        pauseBossesTextUI.text = bossesKilled.ToString();
+        pauseCurrencyTextUI.text = "$ " + Money.ToString();
+
         pauseScreen.SetActive(true);
-        levels.SetActive(false);
-        hauntedForest.SetActive(false);
-        castleCourtyard.SetActive(false);
-        insideCastle.SetActive(false);
+        DeactivateGameScreens();
 
         EventSystem.current.SetSelectedGameObject(firstSelectionPause);
     }
@@ -196,9 +285,6 @@ public class GameManager : MonoBehaviour
     public void UnPauseGame()
     {
         isGamePaused = false;
-
-        playSounds = GetComponent<PlaySounds>();
-        playSounds.PlaySelectSound();
 
         levels.SetActive(true);
         switch (currentLevel)
@@ -218,10 +304,26 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void DeactivateGameScreens()
+    {
+        levels.SetActive(false);
+        hauntedForest.SetActive(false);
+        castleCourtyard.SetActive(false);
+        insideCastle.SetActive(false);
+    }
+
+    public void ConfirmEndGame()
+    {
+        yesConfirmationButton.onClick.AddListener(() => { EndGame(); });
+        confirmationModal.SetActive(true);
+    }
+
     public void EndGame()
     {
         currentLevel = 0;
         currentWave = 0;
+
+        gameOverScreen.SetActive(false);
 
         //enemy projectiles cleanup
         foreach (var projectile in GameObject.FindGameObjectsWithTag("Projectile"))
@@ -245,14 +347,36 @@ public class GameManager : MonoBehaviour
 
         isGamePaused = false;
         isGameStarted = false;
+        isGameOver = false;
 
         player.SetActive(false);
+
+        startScreen = GetComponent<StartScreen>();
+        startScreen.BackToStart(true);
+    }
+
+    public void ConfirmRestartGame()
+    {
+        yesConfirmationButton.onClick.AddListener(() => { RestartGame(); });
+        confirmationModal.SetActive(true);
     }
 
     public void RestartGame()
     {
-        isGamePaused = false;
+        confirmationModal.SetActive(false);
 
+        EndGame();
+
+        startScreen = GetComponent<StartScreen>();
+        startScreen.BackToStart(false);
+        startScreen.StartGame();
+
+        UnPauseGame();
+    }
+
+    public void CloseModal()
+    {
+        confirmationModal.SetActive(false);
     }
 
     public void CloseScreen()
@@ -266,7 +390,7 @@ public class GameManager : MonoBehaviour
         else
         {
             startScreen = GetComponent<StartScreen>();
-            startScreen.BackToStart();
+            startScreen.BackToStart(false);
         }
     }
 
@@ -330,7 +454,6 @@ public class GameManager : MonoBehaviour
 
         // Set UI
         SetLevelWaveUI(currentLevel, currentWave);
-
     }
 
     private void SpawnMinions(int randAmountMin, int randAmountMax, GameObject minion)
@@ -368,18 +491,32 @@ public class GameManager : MonoBehaviour
     // Versions of this method, trying things out
     private void SetLevelWaveUI(int level, int wave)
     {
-        // Waves & Levels           
+        playSounds = GetComponent<PlaySounds>();
+
+        // Waves & Levels
         if (currentWave > 0)
         {
             currentLevel = 1;
+            if (currentWave == 1)
+            {
+                playSounds.PlayMusic(hauntedForestClip);
+            }
         }
         if (currentWave > 4)
         {
             currentLevel = 2;
+            if (currentWave == 5)
+            {
+                playSounds.PlayMusic(castleCourtyardClip);
+            }
         }
         if (currentWave > 8)
         {
             currentLevel = 3;
+            if (currentWave == 9)
+            {
+                playSounds.PlayMusic(insideCastleClip);
+            }
         }
 
         levelTextUI.text = "Level: " + currentLevel.ToString();
@@ -408,6 +545,9 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
+        gameOverWavesTextUI.text = wave.ToString();
+        gameOverLevelTextUI.text = pauseLevelTextUI.text;
+
         //pauseLevelTextUI.text = pauseLevelTextUI.text + " - Wave " + wave - ((currentLevel - 1) * 4)).ToString();
         pauseLevelTextUI.text = pauseLevelTextUI.text + " - Wave " + wave;
     }
@@ -431,6 +571,7 @@ public class GameManager : MonoBehaviour
     {
         // Health
         playerHealthUI.text = "Health: " + hitPoints.ToString();
+        pauseHealthTextUI.text = hitPoints.ToString();
     }
 
     public void UpdateEnemyList()
@@ -440,8 +581,16 @@ public class GameManager : MonoBehaviour
         // Check if last enemy
         if (enemies.Length <= 0)
         {
-            // Last enemy defeated, open shop and pause game
-            OpenShop();
+            if (currentWave == 12)
+            {
+                isGameOver = true;
+                isGameStarted = false;
+            }
+            else
+            {
+                // Last enemy defeated, open shop and pause game
+                OpenShop();
+            }
         }
     }
 
@@ -452,16 +601,20 @@ public class GameManager : MonoBehaviour
         hudPanel.SetActive(false);
         spellListPanel.SetActive(false);
         shopPanelUI.SetActive(true);
+
+        isSpellShop = true;
     }
 
     public void CloseShopAndInitNextWave()
     {
+        isSpellShop = false;
+
         shopPanelUI.SetActive(false);
         hudPanel.SetActive(true);
         spellListPanel.SetActive(true);
 
         // Update equipped spells to match spellshop inventory
-        print(spellShop.playerInventory);
+        print(spellShop.GetComponent<SpellShop>().playerInventory);
         print(equippedSpells);
 
         // Update spells from SpellShop inventory
@@ -469,6 +622,8 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1;
         InitialiseWave();
+        UpdateEnemyList();
+        SetSpellUI();
     }
 
     private void ResetSpells()
@@ -487,13 +642,13 @@ public class GameManager : MonoBehaviour
         if (player.activeInHierarchy)
         {
             // Add spell prefabs back from inventory
-            for (int i = 0; i < spellShop.playerInventory.Count; i++)
+            for (int i = 0; i < spellShop.GetComponent<SpellShop>().playerInventory.Count; i++)
             {
-                equippedSpells[i] = spellShop.playerInventory[i].spellPrefab;
+                equippedSpells[i] = spellShop.GetComponent<SpellShop>().playerInventory[i].spellPrefab;
             }
         }
 
-        spellShop.Shuffle(spellShop.allSpells);
+        spellShop.GetComponent<SpellShop>().Shuffle(spellShop.GetComponent<SpellShop>().allSpells);
     }
 
     public void UpdateSpellTimers()
@@ -507,6 +662,8 @@ public class GameManager : MonoBehaviour
         {
             if (enemies[i].GetComponent<enemyHealth>().health <= 0)
             {
+                enemiesKilled++;
+
                 //create a coin before deleting the enemy
                 Instantiate(currency, new Vector3(enemies[i].transform.position.x, enemies[i].transform.position.y,0), transform.rotation);
                 Destroy(enemies[i]);
@@ -533,7 +690,7 @@ public class GameManager : MonoBehaviour
     {
         if (!hasFocus)
         {
-            if (isGameStarted && shouldPauseWhenLostFocus)
+            if (isGameStarted && !isSpellShop && shouldPauseWhenLostFocus)
             {
                 PauseGame();
             }

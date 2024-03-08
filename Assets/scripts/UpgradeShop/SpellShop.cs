@@ -21,6 +21,7 @@ public class SpellShop : MonoBehaviour
     public Button[] deleteButtons; // Array of delete buttons for each spell in the inventory
 
     public int playerCurrency;
+    public int currencySpent = 0;
     public Text currencyText;
 
     public GameObject spellPopupWindow; // Reference to the pop-up window GameObject
@@ -47,7 +48,7 @@ public class SpellShop : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        gameManager.spellShop = gameObject.GetComponent<SpellShop>();
+        //gameManager.spellShop = this.GetComponent<SpellShop>();
 
         Shuffle(allSpells); // Shuffle the spells once at the start
         UpdateSpellDisplay();
@@ -381,6 +382,7 @@ public class SpellShop : MonoBehaviour
 
         // Deduct the cost of the spell from the player's currency
         gameManager.Money -= selectedSpell.cost;
+        currencySpent += selectedSpell.cost;
 
         // Add the spell to the player's inventory
         playerInventory.Add(selectedSpell);
