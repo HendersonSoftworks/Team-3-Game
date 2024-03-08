@@ -3362,6 +3362,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7810527433149197281, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7810527433149197283, guid: 41341d69bd835384cb4bd3b756628fed,
         type: 3}
       propertyPath: m_RootOrder
@@ -3612,6 +3617,11 @@ PrefabInstance:
       propertyPath: gameOverCurrencySpentTextUI
       value: 
       objectReference: {fileID: 4578394432225131071}
+    - target: {fileID: 7810527433149197293, guid: 41341d69bd835384cb4bd3b756628fed,
+        type: 3}
+      propertyPath: equippedSpells.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7810527433149197294, guid: 41341d69bd835384cb4bd3b756628fed,
         type: 3}
       propertyPath: gameLevels

@@ -183,6 +183,8 @@ public class GameManager : MonoBehaviour
 
         SetPlayerUI();
 
+        SetSpellUI();
+
         ManageEnemyDestruction();
 
         ManagePlayerDeathState();
@@ -232,6 +234,7 @@ public class GameManager : MonoBehaviour
         levels.SetActive(true);
         hauntedForest.SetActive(true);
 
+        hitPoints = 100;
         player.SetActive(true);
 
         InitialiseWave();
@@ -596,6 +599,7 @@ public class GameManager : MonoBehaviour
             if (equippedSpells[i] != null)
             {
                 spellSlotUI[i].text = equippedSpells[i].name;
+                spellSlotUI[i].gameObject.SetActive(true);
             }
             else
             {
