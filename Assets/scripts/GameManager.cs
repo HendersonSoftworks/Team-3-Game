@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public float[] spellsTimersReset; // timer depends on the spell
     public bool isInvincible = false;
     public bool isDead = false;
+    public AudioClip playerDied;
 
     [Header("Enemy Settings")]
     public GameObject[] enemies;
@@ -155,6 +156,8 @@ public class GameManager : MonoBehaviour
 
     private void GameIsOver(bool gameWon)
     {
+        player.SetActive(false);
+
         if (gameWon)
         {
             gameOverTitleTextUI.text = "Congratulations!";
@@ -195,13 +198,12 @@ public class GameManager : MonoBehaviour
     {
         if (hitPoints <= 0)
         {
-            isDead = true;
-            player.SetActive(false);
-        }
-        else
-        {
-            isDead = false;
-            player.SetActive(true);
+            isGamePaused = false;
+            isGameStarted = false;
+            isGameOver = true;
+
+            playSounds = GetComponent<PlaySounds>();
+            playSounds.PlayEffect(playerDied);
         }
     }
 
@@ -443,26 +445,31 @@ public class GameManager : MonoBehaviour
                 SpawnMinions(min, max, minionPrefabs[3]);   // Serpents
                 break;
             case 6:
-                SpawnMinions(min, max, minionPrefabs[0]);   // Ravens
+                SpawnMinions(min, max, minionPrefabs[1]);   // Ravens
                 SpawnMinions(min, max, minionPrefabs[3]);   // Serpents
                 break;
             case 7:
-                SpawnBoss(bossPrefabs[1]);                  // Dragon
+                SpawnMinions(min, max, minionPrefabs[1]);   // Ravens
+                SpawnMinions(min, max, minionPrefabs[0]);   // Spiders
                 SpawnMinions(min, max, minionPrefabs[3]);   // Serpents
                 break;
             case 8:
-                SpawnMinions(min, max, minionPrefabs[4]);   // Skeletons
+                SpawnBoss(bossPrefabs[1]);                  // Dragon
+                SpawnMinions(min, max, minionPrefabs[3]);   // Serpents
                 break;
             case 9:
                 SpawnMinions(min, max, minionPrefabs[4]);   // Skeletons
-                SpawnMinions(min, max, minionPrefabs[2]);   // Wisps
                 break;
             case 10:
                 SpawnMinions(min, max, minionPrefabs[4]);   // Skeletons
                 SpawnMinions(min, max, minionPrefabs[2]);   // Wisps
-                SpawnMinions(min, max, minionPrefabs[0]);   // spiders
                 break;
             case 11:
+                SpawnMinions(min, max, minionPrefabs[4]);   // Skeletons
+                SpawnMinions(min, max, minionPrefabs[2]);   // Wisps
+                SpawnMinions(min, max, minionPrefabs[0]);   // spiders
+                break;
+            case 12:
                 SpawnMinions(min, max, minionPrefabs[4]);   // Skeletons
                 SpawnBoss(bossPrefabs[2]);                  // Ancient Wizard
                 break;
@@ -613,6 +620,9 @@ public class GameManager : MonoBehaviour
         {
             if (currentWave == 12)
             {
+                enemiesKilled--;
+                bossesKilled++;
+
                 isGameOver = true;
                 isGameStarted = false;
             }
@@ -626,6 +636,13 @@ public class GameManager : MonoBehaviour
 
     public void OpenShop()
     {
+
+        if (Time.timeScale > 0 && (currentWave == 4 || currentWave == 8))
+        {
+            enemiesKilled--;
+            bossesKilled++;
+        }
+
         Time.timeScale = 0;
 
         hudPanel.SetActive(false);

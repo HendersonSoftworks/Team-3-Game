@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7810527433149197282}
   - component: {fileID: 7810527433149197281}
   - component: {fileID: 7810527433149197294}
+  - component: {fileID: 8826556331121730477}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -66,6 +67,8 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  isInvincible: 0
+  isDead: 0
   enemies: []
   minionPrefabs:
   - {fileID: 4164157842141035894, guid: 0d19be2b8856f2943bc988f14f7c92a0, type: 3}
@@ -85,10 +88,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  currentLevel: 0
-  currentWave: 0
   levelTextUI: {fileID: 0}
   waveTextUI: {fileID: 0}
+  currentLevel: 0
+  currentWave: 0
+  enemiesKilled: 0
+  bossesKilled: 0
+  gameDifficulty: 0
+  gameDifficultyTexts:
+  - Easy
+  - Normal
+  - Hard
   shopPanelUI: {fileID: 0}
   hudPanel: {fileID: 0}
   spellListPanel: {fileID: 0}
@@ -96,25 +106,36 @@ MonoBehaviour:
   hauntedForest: {fileID: 0}
   castleCourtyard: {fileID: 0}
   insideCastle: {fileID: 0}
-  startScreenClip: {fileID: 8300000, guid: 50404ca210fa53349a3c9b1876526273, type: 3}
   hauntedForestClip: {fileID: 8300000, guid: 91f9bc77343743b4eaa5010e3600e092, type: 3}
   castleCourtyardClip: {fileID: 8300000, guid: 91f9bc77343743b4eaa5010e3600e092, type: 3}
   insideCastleClip: {fileID: 8300000, guid: 91f9bc77343743b4eaa5010e3600e092, type: 3}
   isGamePaused: 0
   isGameStarted: 0
+  isGameOver: 0
+  isSpellShop: 0
   shouldPauseWhenLostFocus: 1
   optionsScreen: {fileID: 0}
   pauseScreen: {fileID: 0}
   firstSelectionPause: {fileID: 0}
   gameOverScreen: {fileID: 0}
+  confirmationModal: {fileID: 0}
+  yesConfirmationButton: {fileID: 0}
   pauseLevelTextUI: {fileID: 0}
   pauseHealthTextUI: {fileID: 0}
-  gameDifficulty: 0
-  gameDifficultyTexts:
-  - Easy
-  - Normal
-  - Hard
+  pauseDamageTextUI: {fileID: 0}
+  pausePowersTextUI: {fileID: 0}
+  pauseCurrencyTextUI: {fileID: 0}
+  pauseKillsTextUI: {fileID: 0}
+  pauseBossesTextUI: {fileID: 0}
   pauseGameDifficultyTextUI: {fileID: 0}
+  gameOverTitleTextUI: {fileID: 0}
+  gameOverLevelTextUI: {fileID: 0}
+  gameOverWavesTextUI: {fileID: 0}
+  gameOverCurrencyWonTextUI: {fileID: 0}
+  gameOverCurrencySpentTextUI: {fileID: 0}
+  gameOverKillsTextUI: {fileID: 0}
+  gameOverBossesTextUI: {fileID: 0}
+  gameOverDifficultyTextUI: {fileID: 0}
   spellShop: {fileID: 0}
 --- !u!114 &8363320587771105339
 MonoBehaviour:
@@ -444,6 +465,106 @@ MonoBehaviour:
   pauseScreen: {fileID: 0}
   optionsScreen: {fileID: 0}
   creditsScreen: {fileID: 0}
+  gameOverScreen: {fileID: 0}
+  confirmationModal: {fileID: 0}
+  yesConfirmationButton: {fileID: 0}
   firstSelection: {fileID: 0}
   firstSelectionOptions: {fileID: 0}
   firstSelectionCredits: {fileID: 0}
+  startScreenClip: {fileID: 0}
+--- !u!82 &8826556331121730477
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7810527433149197295}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
