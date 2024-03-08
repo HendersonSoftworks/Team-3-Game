@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5316335917784017326
 Transform:
   m_ObjectHideFlags: 0
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183b2614480284708b1555f0c21cc732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDamaged: 0
   moveSpeed: 5
 --- !u!114 &5316335917784017324
 MonoBehaviour:
@@ -61,6 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ee49e4d68a6da4181c3ad0e4c3dab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCasting: 0
   timer: 0
   timerReset: 1
   gameManager: {fileID: 0}
@@ -134,9 +136,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.18353128}
   serializedVersion: 2
-  m_Radius: 0.16
+  m_Radius: 0.4564687
 --- !u!50 &5316335917784017327
 Rigidbody2D:
   serializedVersion: 4

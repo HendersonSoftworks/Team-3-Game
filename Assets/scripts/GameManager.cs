@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public GameObject defaultSpellMM;
     public GameObject[] equippedSpells;
     public float[] spellsTimersReset; // timer depends on the spell
+    public bool isInvincible = false;
+    public bool isDead = false;
 
     [Header("Enemy Settings")]
     public GameObject[] enemies;
@@ -180,10 +182,26 @@ public class GameManager : MonoBehaviour
 
         ManageEnemyDestruction();
 
+        ManagePlayerDeathState();
+
         // If ESC is hit, pauses game and open pause menu
         if (Input.GetKeyDown(KeyCode.Escape) && !isSpellShop)
         {
             PauseGame();
+        }
+    }
+
+    private void ManagePlayerDeathState()
+    {
+        if (hitPoints <= 0)
+        {
+            isDead = true;
+            player.SetActive(false);
+        }
+        else
+        {
+            isDead = false;
+            player.SetActive(true);
         }
     }
 
@@ -454,6 +472,18 @@ public class GameManager : MonoBehaviour
 
         // Set UI
         SetLevelWaveUI(currentLevel, currentWave);
+
+        // Clear leftover coins
+        ClearCoins();
+    }
+
+    private void ClearCoins()
+    {
+        var coins = FindObjectsOfType<Coin>();
+        foreach (var coin in coins)
+        {
+            Destroy(coin.gameObject);
+        }
     }
 
     private void SpawnMinions(int randAmountMin, int randAmountMax, GameObject minion)
@@ -614,10 +644,6 @@ public class GameManager : MonoBehaviour
         spellListPanel.SetActive(true);
 
         // Update equipped spells to match spellshop inventory
-        print(spellShop.GetComponent<SpellShop>().playerInventory);
-        print(equippedSpells);
-
-        // Update spells from SpellShop inventory
         ResetSpells();
 
         Time.timeScale = 1;
@@ -695,5 +721,27 @@ public class GameManager : MonoBehaviour
                 PauseGame();
             }
         }
+    }
+
+    public void DamagePlayer()
+    {
+        hitPoints -= 10;
+        
+        Color damageCol = new Color(1, 1, 1, 0.5f);
+        player.GetComponent<SpriteRenderer>().color = damageCol;
+
+        isInvincible = true;
+
+        StartCoroutine(RestorePlayerAlpha(2));
+    }
+
+    public IEnumerator RestorePlayerAlpha(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        Color originalCol = new Color(1, 1, 1, 1);
+        player.GetComponent<SpriteRenderer>().color = originalCol;
+
+        isInvincible = false;
     }
 }
