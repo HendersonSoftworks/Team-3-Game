@@ -332,6 +332,17 @@ public class GameManager : MonoBehaviour
         // Set UI
         SetLevelWaveUI(currentLevel, currentWave);
 
+        // Clear leftover coins
+        ClearCoins();
+    }
+
+    private void ClearCoins()
+    {
+        var coins = FindObjectsOfType<Coin>();
+        foreach (var coin in coins)
+        {
+            Destroy(coin.gameObject);
+        }
     }
 
     private void SpawnMinions(int randAmountMin, int randAmountMax, GameObject minion)
@@ -462,10 +473,6 @@ public class GameManager : MonoBehaviour
         spellListPanel.SetActive(true);
 
         // Update equipped spells to match spellshop inventory
-        print(spellShop.playerInventory);
-        print(equippedSpells);
-
-        // Update spells from SpellShop inventory
         ResetSpells();
 
         Time.timeScale = 1;
