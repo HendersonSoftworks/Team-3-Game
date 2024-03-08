@@ -7,6 +7,7 @@ using System.Timers;
 public class bossProjectile : MonoBehaviour
 {
     private GameObject Wizard;
+    public GameManager gameManager;
 
     private float xDiff;
     private float yDiff;
@@ -15,9 +16,13 @@ public class bossProjectile : MonoBehaviour
     private float Speed;
 
     private bool direction;
+
+    private float DamageCoolDown;
+    private bool hit;
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         Wizard = GameObject.Find("Wizard");
         Speed = 1f;
 
@@ -25,6 +30,8 @@ public class bossProjectile : MonoBehaviour
         yDiff = Wizard.transform.position.y;
 
         rotation = transform.eulerAngles.z;
+
+        hit = false;
     }
 
     // Update is called once per frame
@@ -65,5 +72,23 @@ public class bossProjectile : MonoBehaviour
 
         xDiff = Wizard.transform.position.x;
         yDiff = Wizard.transform.position.y;
+
+        if (hit)
+        {
+            DamageCoolDown += Time.deltaTime;
+            if(DamageCoolDown >2)
+            {
+                hit = false;
+            }
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            gameManager.hitPoints -= 10;
+            hit = true;
+        }
     }
 }

@@ -15,10 +15,10 @@ public class Enemy : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         Player = gameManager.player;
-
-        movementSpeed = 0.8F;
         this.GetComponent<enemyHealth>().health = 100;
         this.GetComponent<enemyHealth>().Damage = 10;
+
+        movementSpeed = 0.8F;        
     }
 
     // Update is called once per frame

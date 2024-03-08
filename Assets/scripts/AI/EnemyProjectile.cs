@@ -7,6 +7,7 @@ using System.Timers;
 public class EnemyProjectile : MonoBehaviour
 {
     private GameObject Player;
+    public GameManager gameManager;
     public GameObject Projectile;
 
     private float xDiff;
@@ -18,7 +19,8 @@ public class EnemyProjectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.FindWithTag("Player");
+        gameManager = FindObjectOfType<GameManager>();
+        Player = gameManager.player;
 
         seconds = 25f;
         movementSpeed = 0.8f;
@@ -40,5 +42,14 @@ public class EnemyProjectile : MonoBehaviour
     void Update()
     {
         transform.Translate(new Vector2(xDiff, yDiff) * Time.deltaTime);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            gameManager.hitPoints -= 10;
+            Destroy(gameObject);
+        }
     }
 }

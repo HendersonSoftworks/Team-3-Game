@@ -20,14 +20,4 @@ public class Coin : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            //Debug.Log("Player earns currency");
-            gameManager.Money += 25;
-            Destroy(gameObject);
-        }
-    }
 }
