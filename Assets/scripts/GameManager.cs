@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
             gameOverTitleTextUI.text = "Game over";
         }
 
-        gameOverCurrencyWonTextUI.text = spellShop.GetComponent<SpellShop>().playerCurrency.ToString();
+        gameOverCurrencyWonTextUI.text = Money.ToString();
         gameOverCurrencySpentTextUI.text = spellShop.GetComponent<SpellShop>().currencySpent.ToString();
 
         gameOverKillsTextUI.text = enemiesKilled.ToString();
@@ -274,7 +274,7 @@ public class GameManager : MonoBehaviour
         pausePowersTextUI.text = spellsTotal.ToString();
         pauseKillsTextUI.text = enemiesKilled.ToString();
         pauseBossesTextUI.text = bossesKilled.ToString();
-        pauseCurrencyTextUI.text = "$ " + spellShop.GetComponent<SpellShop>().playerCurrency.ToString();
+        pauseCurrencyTextUI.text = "$ " + Money.ToString();
 
         pauseScreen.SetActive(true);
         DeactivateGameScreens();
@@ -454,7 +454,7 @@ public class GameManager : MonoBehaviour
 
         // Set UI
         SetLevelWaveUI(currentLevel, currentWave);
-     }
+    }
 
     private void SpawnMinions(int randAmountMin, int randAmountMax, GameObject minion)
     {
@@ -518,7 +518,6 @@ public class GameManager : MonoBehaviour
                 playSounds.PlayMusic(insideCastleClip);
             }
         }
-
 
         levelTextUI.text = "Level: " + currentLevel.ToString();
         //waveTextUI.text = "Wave: " + (wave - ((currentLevel - 1) * 4)).ToString();
